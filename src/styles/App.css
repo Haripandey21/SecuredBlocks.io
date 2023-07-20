@@ -34,8 +34,8 @@
 }
 
 .card {
-	margin: 0.5rem;
-	padding: 0.7rem;
+	margin: 0.4rem;
+	padding: 0.4rem;
 	text-align: center;
 	color: #0070f3;
 	background-color: #fafafa;
@@ -50,7 +50,7 @@
 .card:focus,
 .card:active {
 	cursor: pointer;
-	background-color: #855353;
+	background-color: #bbb4b4;
 }
 
 .footer {
@@ -87,8 +87,8 @@
 }
 
 .flex-container > div {
-	width: 100px;
-	margin: 10px;
+	width: 250px;
+	margin: 4px;
 	text-align: center;
 	line-height: 75px;
 	font-size: 30px;

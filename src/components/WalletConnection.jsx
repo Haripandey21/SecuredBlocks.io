@@ -34,12 +34,12 @@ function WalletConnection() {
           },
           uiConfig: {
             appName: "SecuredBlocks",
-            appLogo: "favicon.png", // Your App Logo Here
+            appLogo: "favicon.png", 
             theme: "light",
             loginMethodsOrder: ["apple", "google", "twitter"],
-            defaultLanguage: "en", // en, de, ja, ko, zh, es, fr, pt, nl
+            defaultLanguage: "en", 
             loginGridCol: 3,
-            primaryButton: "externalLogin", // "externalLogin" | "socialLogin" | "emailLogin"
+            primaryButton: "externalLogin",
           },
           web3AuthNetwork: "cyan",
         });
@@ -54,8 +54,8 @@ function WalletConnection() {
               name: "Your app Name",
               logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
               logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
-              defaultLanguage: "en", // en, de, ja, ko, zh, es, fr, pt, nl
-              dark: false, // whether to enable dark mode. defaultValue: false
+              defaultLanguage: "en", 
+              dark: false, 
             },
             mfaSettings: {
               deviceShareFactor: {
@@ -175,14 +175,25 @@ function WalletConnection() {
     }
   };
   
-  const getUserInfo = async () => {
-    if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
-      return;
-    }
+  const getUserData = async () => {
     const user = await web3auth.getUserInfo();
-    uiConsole(user);
+    console.log("username : ",user.name);
+    console.log("Id :",user.verifierId);
+
+    const rpc = new RPC(provider);
+
+    const balance = await rpc.getBalance();
+    console.log("Balance : ",balance,"eth");
+
+    const address = await rpc.getAccounts();
+    console.log("Address : ",address);
+
+    const privateKey = await rpc.getPrivateKey();
+    console.log("Private Key : ",privateKey);
+    
   };
+
+
 
   const logout = async () => {
     if (!web3auth) {
@@ -197,25 +208,12 @@ function WalletConnection() {
   const initiateTopUp = async () => {
     window.location.href = "https://goerlifaucet.com";
   };
-  const getAccounts = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
-    uiConsole(address);
+
+  const uploadData = async () => {
+    window.location.href = "http://localhost:3000/PatientForm";
   };
 
-  const getBalance = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const balance = await rpc.getBalance();
-    uiConsole(balance);
-  };
+
 
   const sendTransaction = async () => {
     if (!provider) {
@@ -226,27 +224,6 @@ function WalletConnection() {
     const receipt = await rpc.sendTransaction();
     uiConsole(receipt);
   };
-
-  const signMessage = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const signedMessage = await rpc.signMessage();
-    uiConsole(signedMessage);
-  };
-
-  const getPrivateKey = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const privateKey = await rpc.getPrivateKey();
-    uiConsole(privateKey);
-  };
-
   function uiConsole(...args) {
     const el = document.querySelector("#console>p");
     if (el) {
@@ -256,30 +233,18 @@ function WalletConnection() {
 
   const loggedInView = (
     <>
+    
       <div className="flex-container">
-        <div>
-          <button onClick={getUserInfo} className="card">
-            Get User Info
-          </button>
-        </div>
+      
         <div>
           <button onClick={initiateTopUp} className="card">
-            initiateTopUp
+            Faucet
           </button>
         </div>
+        
         <div>
-          <button onClick={getAccounts} className="card">
-            Get Accounts
-          </button>
-        </div>
-        <div>
-          <button onClick={getBalance} className="card">
-            Get Balance
-          </button>
-        </div>
-        <div>
-          <button onClick={signMessage} className="card">
-            Sign Message
+          <button onClick={getUserData} className="card">
+           User Profile 
           </button>
         </div>
         <div>
@@ -288,8 +253,8 @@ function WalletConnection() {
           </button>
         </div>
         <div>
-          <button onClick={getPrivateKey} className="card">
-            Get Private Key
+          <button onClick={uploadData} className="card">
+            Upload Data
           </button>
         </div>
         <div>
@@ -311,6 +276,7 @@ function WalletConnection() {
   );
 
   return (
+    
     <div className="container">
       <h1 className="title">
         <a href="http://localhost:3000/" rel="noreferrer">

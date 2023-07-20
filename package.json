@@ -16,6 +16,8 @@
     "@web3auth/torus-evm-adapter": "^6.1.1",
     "@web3auth/torus-wallet-connector-plugin": "^6.1.1",
     "@web3auth/wallet-connect-v2-adapter": "^6.1.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -23,7 +25,8 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.9.4",
     "web-vitals": "^3.1.0",
-    "web3": "^1.8.2"
+    "web3": "^1.8.2",
+    "web3.storage": "^4.5.4"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
