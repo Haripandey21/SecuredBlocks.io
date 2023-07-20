@@ -248,7 +248,7 @@ function WalletConnection() {
           </button>
         </div>
         <div>
-          <button onClick={sendTransaction} className="card">
+          <button onClick={getUserData} className="card">
             Send Transaction
           </button>
         </div>
