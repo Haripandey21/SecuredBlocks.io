@@ -275,6 +275,8 @@ function WalletConnection() {
     </button>
   );
 
+
+  
   return (
     
     <div className="container">

@@ -3,7 +3,6 @@ import { Web3Storage } from "web3.storage";
 import { Buffer } from "buffer";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
-
 window.Buffer = Buffer;
 
 // make web3storage client
@@ -55,6 +54,10 @@ const Userform = () => {
     ).toString();
     const buffer = Buffer.from(encryptedData);
 
+    function mintNft(){
+
+
+    }
     try {
       // Upload the data.json file and get its CID
       const files = [new File([buffer], "data.json")];
@@ -95,6 +98,7 @@ const Userform = () => {
     const files = Array.from(e.target.files);
     setImageFiles(files);
   }
+
 
   return (
     <div>
