@@ -3,6 +3,8 @@ import { Web3Storage } from "web3.storage";
 import { Buffer } from "buffer";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
+import ContractInteraction from "./ContractConnection";
+
 window.Buffer = Buffer;
 
 // make web3storage client
@@ -26,6 +28,9 @@ const Userform = () => {
   const [hospitalPhoneNumber, setHospitalPhoneNumber] = useState("");
   const [hospitalAddress, setHospitalAddress] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
+  const [formSubmitted, setFormSubmitted] = useState(false); 
+  const [jsonDataCid, setJsonDataCid] = useState(null);
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -54,14 +59,11 @@ const Userform = () => {
     ).toString();
     const buffer = Buffer.from(encryptedData);
 
-    function mintNft(){
-
-
-    }
     try {
       // Upload the data.json file and get its CID
       const files = [new File([buffer], "data.json")];
       const jsonDataCid = await client.put(files);
+      setJsonDataCid(jsonDataCid);
 
       console.log("Image CID:", imageCid);
       console.log("Data JSON CID:", jsonDataCid);
@@ -81,6 +83,7 @@ const Userform = () => {
 
       const decryptedData = decryptData(encryptedDataJson, symmetricKey);
       console.log("Decrypted Data:", decryptedData);
+      setFormSubmitted(true); 
     } catch (error) {
       alert(
         `Oops! Something went wrong. Please refresh and try again. Error ${error}`
@@ -215,7 +218,7 @@ const Userform = () => {
                   </div>
                 </div>
               </div>
-              {/* Submit button */}
+              <ContractInteraction formSubmitted={formSubmitted} jsonDataCid={jsonDataCid} />              {/* Submit button */}
               <div className="flex justify-end">
                 <button
                   type="submit"

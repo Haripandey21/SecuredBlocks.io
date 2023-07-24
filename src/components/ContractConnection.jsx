@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import getWeb3 from './web3Utils';
-import ABI from "../ABI/contractAbi.json"
+import ABI from "../ABI/contractAbi.json";
 
-const ContractInteraction = () => {
+const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
-  
+
   useEffect(() => {
     const initWeb3 = async () => {
       try {
@@ -21,13 +21,20 @@ const ContractInteraction = () => {
 
     initWeb3();
   }, []);
- 
-  const callContractFunction = async () => {
-          // Get the current connected account from MetaMask
-          const accounts = await web3.eth.getAccounts();
-          const currentAccount = accounts[0]; 
+
+  useEffect(() => {
+    // Call the mintNft function when formSubmitted state changes to true
+    if (formSubmitted && contract) {
+      mintNft();
+    }
+  }, [formSubmitted, contract]);
+
+  const mintNft = async () => {
+    // Get the current connected account from MetaMask
+    const accounts = await web3.eth.getAccounts();
+    const currentAccount = accounts[0];
     try {
-      const result = await contract.methods.safeMint("https://bafybeifhz5pfpdzhxa7hhubzazh6lzzf5lkqwk2on7z2b7pocyigss7twa.ipfs.dweb.link/").send({ from:currentAccount});
+      await contract.methods.safeMint(jsonDataCid).send({ from: currentAccount });
     } catch (error) {
       console.error('Error calling contract function:', error);
     }
@@ -35,7 +42,7 @@ const ContractInteraction = () => {
 
   return (
     <div>
-      <button onClick={callContractFunction}>Mint Nft </button>
+      {/* Display any contract-related content if needed */}
     </div>
   );
 };
