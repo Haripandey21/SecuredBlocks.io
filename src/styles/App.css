@@ -132,7 +132,7 @@
   }
   
   /* nft cards  */
-  .card {
+  .nftcard {
 	width: 190px;
 	height: 254px;
 	background: #07182E;
@@ -144,13 +144,13 @@
 	border-radius: 20px;
   }
   
-  .card h2 {
+  .nftcard h2 {
 	z-index: 1;
 	color: white;
 	font-size: 1.1em;
   }
   
-  .card::before {
+  .nftcard::before {
 	content: '';
 	position: absolute;
 	width: 100px;
@@ -170,7 +170,7 @@
 	}
   }
   
-  .card::after {
+  .nftcard::after {
 	content: '';
 	position: absolute;
 	background: #38485e;

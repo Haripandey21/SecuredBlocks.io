@@ -13,6 +13,7 @@ function makeStorageClient() {
     token: process.env.REACT_APP_WEB3STORAGE_TOKEN,
   });
 }
+
 // decrypt data
 function decryptData(encryptedData, key) {
   const decryptedBytes = AES.decrypt(encryptedData, key);
@@ -49,7 +50,7 @@ const Userform = () => {
       hospitalAddress: hospitalAddress,
       imageCid: imageCid,
     };
-    const symmetricKey = getRandomString(10);
+    const symmetricKey = process.env.REACT_APP_SYMMETRIC_KEY;
     console.log(symmetricKey);
 
     // Encrypt the data object
