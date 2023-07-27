@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import getWeb3 from './web3Utils';
 import ABI from "../ABI/contractAbi.json";
 
-const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
+  const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
 
@@ -11,8 +11,7 @@ const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractAddress = '0x23eC6063F3dB924BA1a2d9102354b2A1161435eF';
-        const contractInstance = new web3Instance.eth.Contract(ABI, contractAddress);
+        const contractInstance = new web3Instance.eth.Contract(ABI, "0x23eC6063F3dB924BA1a2d9102354b2A1161435eF");
         setContract(contractInstance);
       } catch (error) {
         console.error('Error initializing web3:', error);
@@ -42,7 +41,6 @@ const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
 
   return (
     <div>
-      {/* Display any contract-related content if needed */}
     </div>
   );
 };

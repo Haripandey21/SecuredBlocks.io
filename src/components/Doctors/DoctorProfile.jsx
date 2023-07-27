@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";//SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import "../styles/App.css";
-import RPC from "../web3RPC"; // for using web3.js
+import "../../styles/App.css";
+import RPC from "../../web3RPC"; // for using web3.js
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -18,7 +18,7 @@ import { TorusWalletAdapter } from "@web3auth/torus-evm-adapter";
 const clientId =
   "BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk"; 
 
-function WalletConnection() {
+function DoctorProfile() {
   const [web3auth, setWeb3auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -154,7 +154,7 @@ function WalletConnection() {
   }, []);
   const login = async () => {
     if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
+      console.log("web3auth not initialized yet");
       return;
     }
     const web3authProvider = await web3auth.connect();
@@ -192,14 +192,7 @@ function WalletConnection() {
     console.log("Private Key : ",privateKey);
     
   };
-
-
-
   const logout = async () => {
-    if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
-      return;
-    }
     await web3auth.logout();
     setProvider(null);
     setLoggedIn(false);
@@ -208,28 +201,10 @@ function WalletConnection() {
   const initiateTopUp = async () => {
     window.location.href = "https://goerlifaucet.com";
   };
-
-  const uploadData = async () => {
-    window.location.href = "http://localhost:3000/PatientForm";
+  const showNfts = async () => {
+    window.location.href = "/showNfts";
   };
 
-
-
-  const sendTransaction = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const receipt = await rpc.sendTransaction();
-    uiConsole(receipt);
-  };
-  function uiConsole(...args) {
-    const el = document.querySelector("#console>p");
-    if (el) {
-      el.innerHTML = JSON.stringify(args || {}, null, 2);
-    }
-  }
 
   const loggedInView = (
     <>
@@ -244,18 +219,12 @@ function WalletConnection() {
         
         <div>
           <button onClick={getUserData} className="card">
-           User Profile 
-          </button>
-        </div>
-        
-
-          <button onClick={getUserData} className="card">
-            Send Transaction
+           Your Profile 
           </button>
         </div>
         <div>
-          <button onClick={uploadData} className="card">
-            Upload Data
+          <button onClick={showNfts} className="card">
+            Your Nfts
           </button>
         </div>
         <div>
@@ -263,9 +232,6 @@ function WalletConnection() {
             Log Out
           </button>
         </div>
-      </div>
-      <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
       </div>
     </>
   );
@@ -283,7 +249,6 @@ function WalletConnection() {
     <div className="container">
       <h1 className="title">
         <a href="http://localhost:3000/" rel="noreferrer">
-          SecuredBlocks.io{" "}
         </a>
       </h1>
 
@@ -292,4 +257,4 @@ function WalletConnection() {
   );
 }
 
-export default WalletConnection;
+export default DoctorProfile;
