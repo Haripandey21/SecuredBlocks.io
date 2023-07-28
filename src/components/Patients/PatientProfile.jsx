@@ -8,23 +8,17 @@ import UserProfileTable from "./UserProfileTable";
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
-
-import {
-  WalletConnectV2Adapter,
-  getWalletConnectV2Settings,
-} from "@web3auth/wallet-connect-v2-adapter";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 import { TorusWalletAdapter } from "@web3auth/torus-evm-adapter";
 
 const clientId =
-  "BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk"; 
+  "BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk";
 
 function PatientProfile() {
   const [web3auth, setWeb3auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
-
   useEffect(() => {
     const init = async () => {
       try {
@@ -37,10 +31,10 @@ function PatientProfile() {
           },
           uiConfig: {
             appName: "SecuredBlocks",
-            appLogo: "favicon.png", 
+            appLogo: "favicon.png",
             theme: "light",
             loginMethodsOrder: ["apple", "google", "twitter"],
-            defaultLanguage: "en", 
+            defaultLanguage: "en",
             loginGridCol: 3,
             primaryButton: "externalLogin",
           },
@@ -57,8 +51,8 @@ function PatientProfile() {
               name: "Your app Name",
               logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
               logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
-              defaultLanguage: "en", 
-              dark: false, 
+              defaultLanguage: "en",
+              dark: false,
             },
             mfaSettings: {
               deviceShareFactor: {
@@ -90,27 +84,15 @@ function PatientProfile() {
           walletInitOptions: {
             whiteLabel: {
               theme: { isDark: false, colors: { primary: "#a200ff" } },
-              logoDark: "favicon_2.png",
-              logoLight: "favicon_2.png",
+              logoDark: "https://images.web3auth.io/web3auth-logo-w.svg",
+              logoLight: "https://images.web3auth.io/web3auth-logo-w-light.svg",
             },
             useWalletConnect: true,
             enableLogging: true,
           },
         });
-      
+
         await web3auth.addPlugin(torusPlugin);
-
-        const defaultWcSettings = await getWalletConnectV2Settings(
-          "eip155",
-          [1, 137, 5],
-          "04309ed1007e77d1f119b85205bb779d"
-        );
-        const walletConnectV2Adapter = new WalletConnectV2Adapter({
-          adapterSettings: { ...defaultWcSettings.adapterSettings },
-          loginSettings: { ...defaultWcSettings.loginSettings },
-        });
-
-        web3auth.configureAdapter(walletConnectV2Adapter);
 
         // adding metamask adapter
         const metamaskAdapter = new MetamaskAdapter({
@@ -120,7 +102,7 @@ function PatientProfile() {
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
             chainId: "0x5",
-            rpcTarget: "https://rpc.ankr.com/eth_goerli", 
+            rpcTarget: "https://rpc.ankr.com/eth_goerli",
           },
         });
         // we can change the above settings using this function
@@ -163,7 +145,7 @@ function PatientProfile() {
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
     setLoggedIn(true);
-  
+
     // Check if the connected network is Goerli
     const connectedNetwork = web3authProvider.networkId;
     if (connectedNetwork === "0x5") {
@@ -177,34 +159,25 @@ function PatientProfile() {
       }
     }
   };
-  
+
   const getUserData = async () => {
-    if (!provider) {
-      console.error("Provider is not available.");
-      return;
-    }
-  
-    try {
-      const user = await web3auth.getUserInfo();
-      const rpc = new RPC(provider);
-  
-      const balance = await rpc.getBalance();
-      console.log("Balance : ", balance, "eth");
-  
-      const accounts = await rpc.getAccounts();
-      const address = accounts.length > 0 ? accounts[0] : "N/A";
-      console.log("Address : ", address);
-  
-      setUserData({
-        balance: balance,
-        address: address,
-      });
-    } catch (error) {
-      console.error("Error while fetching user data:", error);
-      setUserData(null);
-    }
+    const user = await web3auth.getUserInfo();
+    console.log("username : ", user.name);
+    console.log("Id :", user.verifierId);
+
+    const rpc = new RPC(provider);
+
+    const balance = await rpc.getBalance();
+    console.log("Balance : ", balance, "eth");
+
+    const address = await rpc.getAccounts();
+    console.log("Address : ", address);
+
+    const privateKey = await rpc.getPrivateKey();
+    console.log("Private Key : ", privateKey);
+
   };
-  
+
   const logout = async () => {
     if (!web3auth) {
       uiConsole("web3auth not initialized yet");
@@ -279,6 +252,7 @@ function PatientProfile() {
       </div>
     </>
   );
+  
 
   const unloggedInView = (
     <button onClick={login} className="card">
@@ -286,8 +260,10 @@ function PatientProfile() {
     </button>
   );
 
+
+
   return (
-    
+
     <div className="container">
       <h1 className="title">
         <a href="http://localhost:3000/" rel="noreferrer">

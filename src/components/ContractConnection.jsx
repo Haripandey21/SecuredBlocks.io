@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import getWeb3 from './web3Utils';
 import ABI from "../ABI/contractAbi.json";
 
-  const ContractInteraction = ({ formSubmitted,jsonDataCid }) => {
+const ContractInteraction = ({ formSubmitted, jsonDataCid }) => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
 
@@ -11,10 +11,11 @@ import ABI from "../ABI/contractAbi.json";
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractInstance = new web3Instance.eth.Contract(ABI, "0x23eC6063F3dB924BA1a2d9102354b2A1161435eF");
+        const contractAddress = '0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E';
+        const contractInstance = new web3Instance.eth.Contract(ABI, contractAddress);
         setContract(contractInstance);
       } catch (error) {
-        console.error('Error initializing web3:', error);
+        console.error('ERROR INITILIZING Web3:', error);
       }
     };
 
@@ -34,6 +35,7 @@ import ABI from "../ABI/contractAbi.json";
     const currentAccount = accounts[0];
     try {
       await contract.methods.safeMint(jsonDataCid).send({ from: currentAccount });
+      console.log("Minted");
     } catch (error) {
       console.error('Error calling contract function:', error);
     }
@@ -41,6 +43,7 @@ import ABI from "../ABI/contractAbi.json";
 
   return (
     <div>
+      {/* Display any contract-related content if needed */}
     </div>
   );
 };
