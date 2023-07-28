@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import getWeb3 from './web3Utils';
-import ABI from "../ABI/contractAbi.json";
+import getWeb3 from '../web3Utils';
+import ABI from "../../ABI/contractAbi.json";
 
-const ContractInteraction = ({ formSubmitted, jsonDataCid }) => {
+const MintNft = ({ formSubmitted, jsonDataCid }) => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
 
@@ -48,4 +48,4 @@ const ContractInteraction = ({ formSubmitted, jsonDataCid }) => {
   );
 };
 
-export default ContractInteraction;
+export default MintNft;

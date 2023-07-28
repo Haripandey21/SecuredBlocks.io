@@ -15,7 +15,6 @@ function decryptData(encryptedData, key) {
   return data;
 }
 
-
 const ShowNfts = () => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);

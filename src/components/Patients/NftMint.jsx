@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Web3Storage } from "web3.storage";
 import { Buffer } from "buffer";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
-import ContractInteraction from "./ContractConnection";
+import NftMintContractInteraction from "./MintNftContract";
 
 window.Buffer = Buffer;
-
-// make web3storage client
 function makeStorageClient() {
   return new Web3Storage({
     token: process.env.REACT_APP_WEB3STORAGE_TOKEN,
@@ -20,39 +18,60 @@ function decryptData(encryptedData, key) {
   const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
   return JSON.parse(decryptedData);
 }
-const getRandomString = (length) =>
-  [...Array(length)].map(() => Math.random().toString(36)[2]).join("");
 
-const Userform = () => {
+const NftMint = () => {
   const [username, setUsername] = useState("");
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalPhoneNumber, setHospitalPhoneNumber] = useState("");
   const [hospitalAddress, setHospitalAddress] = useState("");
-  const [imageFiles, setImageFiles] = useState([]);
-  const [formSubmitted, setFormSubmitted] = useState(false); 
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [jsonDataCid, setJsonDataCid] = useState(null);
+  const [imageBinaries, setImageBinaries] = useState(null);
+  const [decryptedData, setDecryptedData] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
 
+  async function downloadAndDisplayImages() {
+    if (imageBinaries.length > 0) {
+      const urls = imageBinaries.map((binaryData) => {
+        const blob = new Blob([binaryData]);
+        return URL.createObjectURL(blob);
+      });
+      return urls;
+    }
+    console.log("No image binaries found.");
+    return [];
+  }
+
+  useEffect(() => {
+    // Download and display images when decryptedData changes
+    const fetchImages = async () => {
+      if (decryptedData) {
+        const urls = await downloadAndDisplayImages(decryptedData);
+        setImageUrls(urls);
+        console.log("images binary",imageBinaries);
+      }
+    };
+
+    fetchImages();
+    // Clean up URLs when component unmounts
+    return () => {
+      imageUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [decryptedData]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    // Upload the image file and get its CID
     const client = makeStorageClient();
-    const imageCid = await Promise.all(
-      imageFiles.map((file) => client.put([file]))
-    );
-
     // Create the data object with other attributes
     const data = {
       name: username,
       hospitalName: hospitalName,
       hospitalPhoneNumber: hospitalPhoneNumber,
       hospitalAddress: hospitalAddress,
-      imageCid: imageCid,
+      imageBinaries: imageBinaries,
     };
     const symmetricKey = process.env.REACT_APP_SYMMETRIC_KEY;
     console.log(symmetricKey);
-
     // Encrypt the data object
     const encryptedData = AES.encrypt(
       JSON.stringify(data),
@@ -66,9 +85,8 @@ const Userform = () => {
       const jsonDataCid = await client.put(files);
       setJsonDataCid(jsonDataCid);
 
-      console.log("Image CID:", imageCid);
+      console.log("Image Binary:", imageBinaries);
       console.log("Data JSON CID:", jsonDataCid);
-      console.log(`Image URL: https://${imageCid}.ipfs.dweb.link`);
       console.log(`Data JSON URL: https://${jsonDataCid}.ipfs.dweb.link`);
 
       // Retrieve the encrypted data.json content
@@ -84,7 +102,11 @@ const Userform = () => {
 
       const decryptedData = decryptData(encryptedDataJson, symmetricKey);
       console.log("Decrypted Data:", decryptedData);
-      setFormSubmitted(true); 
+
+      setDecryptedData(decryptedData);
+      const imageUrls = await downloadAndDisplayImages();
+      setImageUrls(imageUrls);
+      setFormSubmitted(true);
     } catch (error) {
       alert(
         `Oops! Something went wrong. Please refresh and try again. Error ${error}`
@@ -94,15 +116,26 @@ const Userform = () => {
       setHospitalName("");
       setHospitalPhoneNumber("");
       setHospitalAddress("");
-      setImageFiles([]);
     }
   }
 
   function handleFileChange(e) {
     const files = Array.from(e.target.files);
-    setImageFiles(files);
-  }
+    const filePromises = files.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
 
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+
+        reader.readAsArrayBuffer(file);
+      });
+    });
+    Promise.all(filePromises)
+      .then((imageBinaries) => setImageBinaries(imageBinaries))
+      .catch((error) => console.error("Error reading image files:", error));
+  }
 
   return (
     <div>
@@ -219,7 +252,7 @@ const Userform = () => {
                   </div>
                 </div>
               </div>
-              <ContractInteraction formSubmitted={formSubmitted} jsonDataCid={jsonDataCid} />              {/* Submit button */}
+              <NftMintContractInteraction formSubmitted={formSubmitted} jsonDataCid={jsonDataCid} />
               <div className="flex justify-end">
                 <button
                   type="submit"
@@ -228,6 +261,21 @@ const Userform = () => {
                   Submit
                 </button>
               </div>
+              {imageUrls.length > 0 && (
+                <div className="mt-8">
+                  <h2 className="text-xl font-semibold mb-4">Uploaded Images</h2>
+                  <div className="flex flex-wrap">
+                    {imageUrls.map((url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={`${index + 1}`}
+                        className="max-w-xs w-full h-auto mb-4 mr-4 rounded-md border border-gray-300"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </form>
           </section>
         </main>
@@ -236,4 +284,4 @@ const Userform = () => {
   );
 };
 
-export default Userform;
+export default NftMint;

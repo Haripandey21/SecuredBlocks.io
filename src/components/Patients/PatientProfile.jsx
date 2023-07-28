@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Web3Auth } from "@web3auth/modal";//SafeEventEmitterProvider
+import { Web3Auth } from "@web3auth/modal"; //SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import "../../styles/App.css";
 import RPC from "../../web3RPC"; // for using web3.js
-import UserProfileTable from "./UserProfileTable";
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -18,7 +17,6 @@ function PatientProfile() {
   const [web3auth, setWeb3auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
   useEffect(() => {
     const init = async () => {
       try {
@@ -172,10 +170,6 @@ function PatientProfile() {
 
     const address = await rpc.getAccounts();
     console.log("Address : ", address);
-
-    const privateKey = await rpc.getPrivateKey();
-    console.log("Private Key : ", privateKey);
-
   };
 
   const logout = async () => {
@@ -196,7 +190,7 @@ function PatientProfile() {
   };
 
   const mintNfts = async () => {
-    window.location.href = "http://localhost:3000/PatientForm";
+    window.location.href = "http://localhost:3000/NftMint";
   };
 
   function uiConsole(...args) {
@@ -207,30 +201,13 @@ function PatientProfile() {
   }
 
   const loggedInView = (
-    <>    
+    <>
       <div className="flex-container">
-      
         <div>
           <button onClick={initiateTopUp} className="card">
             Faucet
           </button>
         </div>
-        <div>
-      <button onClick={getUserData} className="card">
-        User Profile
-      </button>
-    </div>
-    {userData ? (
-      <UserProfileTable userData={userData} />
-    ) : (
-      <div>
-        <p></p>
-      </div>
-    )}
-    <div id="console" style={{ whiteSpace: "pre-line" }}>
-      <p style={{ whiteSpace: "pre-line" }}></p>
-    </div>
-        
         <div>
           <button onClick={mintNfts} className="card">
             Mint Nfts
@@ -252,7 +229,6 @@ function PatientProfile() {
       </div>
     </>
   );
-  
 
   const unloggedInView = (
     <button onClick={login} className="card">
@@ -260,14 +236,10 @@ function PatientProfile() {
     </button>
   );
 
-
-
   return (
-
     <div className="container">
       <h1 className="title">
-        <a href="http://localhost:3000/" rel="noreferrer">
-        </a>
+        <a href="http://localhost:3000/" rel="noreferrer"></a>
       </h1>
 
       <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
