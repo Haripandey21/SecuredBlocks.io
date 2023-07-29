@@ -3,7 +3,7 @@ import PatientProfile from './components/Patients/PatientProfile';
 import GetStarted from "./components/GetStarted";
 import Login from "./components/Login";
 import DoctorProfile from "./components/Doctors/DoctorProfile";
-import NftMint from "./components/Patients/NftMint";
+import NftMintForm from "./components/Patients/NftMintForm";
 import ShowNfts from "./components/Patients/ShowNfts";
 
 import MintNftContract from './components/Patients/MintNftContract';
@@ -18,7 +18,7 @@ export default function App() {
        <Route path="/" element={< GetStarted/>} />
        <Route path="/Login" element={< Login/>} />
         <Route path="/PatientProfile" element={< PatientProfile/>} />
-        <Route path="/NftMint" element={< NftMint/>} />
+        <Route path="/NftMintForm" element={< NftMintForm/>} />
         <Route path="/ShowNfts" element={< ShowNfts/>} />
         <Route path="/DoctorProfile" element={< DoctorProfile/>} />
         <Route path="/MintNftContract" element={< MintNftContract/>} />

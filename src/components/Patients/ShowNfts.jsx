@@ -8,10 +8,6 @@ function decryptData(encryptedData, key) {
   const decryptedBytes = AES.decrypt(encryptedData, key);
   const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
   const data = JSON.parse(decryptedData);
-
-  // Step 1: Update the data object to include imageCids as an array
-  data.imageCids = data.imageCid ? [data.imageCid] : [];
-
   return data;
 }
 
@@ -28,24 +24,23 @@ const ShowNfts = () => {
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractInstance = new web3Instance.eth.Contract(ABI, "0x23eC6063F3dB924BA1a2d9102354b2A1161435eF");
+        const contractInstance = new web3Instance.eth.Contract(ABI, "0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E");
         setContract(contractInstance);
       } catch (error) {
         console.error('Error initializing web3:', error);
       }
     };
-
     initWeb3();
   }, []);
 
   useEffect(() => {
     // Check if the contract object is available before calling mintNft
     if (contract) {
-      mintNft();
+      showNft();
     }
   }, [contract, web3]);
 
-  const mintNft = async () => {
+  const showNft = async () => {
     // Check if the web3 object is available before trying to get accounts
     if (!web3) {
       console.error('Web3 not initialized.');
@@ -62,6 +57,7 @@ const ShowNfts = () => {
       // Fetch tokenURLs for each tokenId using Promise.all
       const tokenUrls = await Promise.all(tokenIds.map(tokenId => contract.methods.tokenURI(tokenId).call()));
       setTokenUrls(tokenUrls);
+      console.log("tokenurls", tokenUrls);
     } catch (error) {
       console.error('Error calling contract function:', error);
     }
@@ -77,38 +73,22 @@ const ShowNfts = () => {
       const decryptedData = decryptData(encryptedData, process.env.REACT_APP_SYMMETRIC_KEY);
       console.log("decrypted data:", decryptedData);
   
-      //  Get the array of imageCids
-      const imageCids = decryptedData.imageCids;
-  
-      // Open each image in a new tab
-      imageCids.forEach((imageCid) => {
-        const imageUrl = `https://${imageCid[0]}.ipfs.dweb.link`;
-        window.open(imageUrl, '_blank');
-      });
     } catch (error) {
       console.error('Error fetching or decrypting data from IPFS:', error);
     }
   };
 
-
-  
-  
   return (
     <div>
       {tokenIds.map((tokenId, index) => (
-        <div key={tokenId} className="nftcard" onClick={() => handleCardClick(tokenId)}>
+        <button key={tokenId} className="nftcard" onClick={() => handleCardClick(tokenId, decryptedData)}>
           <h2>TokenID: {tokenId}</h2>
-        </div>
+        </button>
       ))}
-
-      {decryptedData && (
-        <div>
-          <h2>Decrypted Content:</h2>
-          <pre>{JSON.stringify(decryptedData, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 };
-
+  
+  
+ 
 export default ShowNfts;

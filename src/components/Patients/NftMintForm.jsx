@@ -19,7 +19,7 @@ function decryptData(encryptedData, key) {
   return JSON.parse(decryptedData);
 }
 
-const NftMint = () => {
+const NftMintForm = () => {
   const [username, setUsername] = useState("");
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalPhoneNumber, setHospitalPhoneNumber] = useState("");
@@ -284,4 +284,4 @@ const NftMint = () => {
   );
 };
 
-export default NftMint;
+export default NftMintForm;
