@@ -157,7 +157,6 @@ function PatientProfile() {
       }
     }
   };
-
   const getUserData = async () => {
     const user = await web3auth.getUserInfo();
     console.log("username : ", user.name);
@@ -188,6 +187,16 @@ function PatientProfile() {
   const showNfts = async () => {
     window.location.href = "/showNfts";
   };
+  const grantAccess = async () => {
+    window.location.href = "/GrantPermission";
+    
+  };
+  const hospitalList = async () => {
+    window.location.href = "/HospitalsList";
+    
+  };
+
+
 
   const mintNfts = async () => {
     window.location.href = "http://localhost:3000/NftMint";
@@ -211,6 +220,16 @@ function PatientProfile() {
         <div>
           <button onClick={mintNfts} className="card">
             Mint Nfts
+          </button>
+        </div>
+        <div>
+          <button onClick={grantAccess} className="card">
+            Grant Access
+          </button>
+        </div>
+        <div>
+          <button onClick={hospitalList} className="card">
+            Hospital Lists
           </button>
         </div>
         <div>

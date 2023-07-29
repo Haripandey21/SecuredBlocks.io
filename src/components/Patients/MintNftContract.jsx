@@ -30,7 +30,6 @@ const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
   }, [formSubmitted, contract]);
 
   const mintNft = async () => {
-    // Get the current connected account from MetaMask
     const accounts = await web3.eth.getAccounts();
     const currentAccount = accounts[0];
     try {

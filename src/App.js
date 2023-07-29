@@ -7,7 +7,10 @@ import NftMintForm from "./components/Patients/NftMintForm";
 import ShowNfts from "./components/Patients/ShowNfts";
 
 import MintNftContract from './components/Patients/MintNftContract';
+import GrantPermission from './components/Patients/GrantPermission';
+
 import './styles/App.css'
+import HospitalsList from "./components/Patients/HospitalsList";
 
 export default function App() {
  
@@ -22,6 +25,11 @@ export default function App() {
         <Route path="/ShowNfts" element={< ShowNfts/>} />
         <Route path="/DoctorProfile" element={< DoctorProfile/>} />
         <Route path="/MintNftContract" element={< MintNftContract/>} />
+        <Route path="/GrantPermission" element={< GrantPermission/>} />
+        <Route path="/HospitalsList" element={< HospitalsList/>} />
+
+
+        
         
       </Routes>
 
