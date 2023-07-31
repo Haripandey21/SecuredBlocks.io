@@ -3,7 +3,6 @@ import getWeb3 from "../web3Utils";
 import ABI from "../../ABI/contractAbi.json";
 import "../../styles/App.css";
 import Loading from "../helpers/Loading";
-
 const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
@@ -53,7 +52,7 @@ const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
   return (
     <div>
       {/* Conditionally render the Loading component */}
-      {isLoading && <Loading />}
+      {isLoading && <Loading/>}
 
       {/* Blur the form when isLoading is true */}
       <div className={`nft-form ${isLoading ? "blurred" : ""}`}>

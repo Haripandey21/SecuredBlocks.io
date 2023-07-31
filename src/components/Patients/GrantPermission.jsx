@@ -62,12 +62,15 @@ const GrantPermission = () => {
   };
 
   return (
+    
     <div className="flex justify-center items-center h-screen">
-      {isLoading && <Loading />}
+      {isLoading && <Loading/>}
       <div className={`content-container ${isLoading ? "blur" : ""}`}></div>
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-100 p-8 rounded-md shadow-md"
+        className={`bg-gray-100 p-8 rounded-md shadow-md ${
+          isLoading ? "blur" : "form-container"
+        }`}
       >
         <div className="mb-4">
           <label
