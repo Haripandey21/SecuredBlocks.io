@@ -1,23 +1,29 @@
-import { useState, useEffect } from 'react';
-import getWeb3 from '../web3Utils';
+import { useState, useEffect } from "react";
+import getWeb3 from "../web3Utils";
 import ABI from "../../ABI/contractAbi.json";
+import "../../styles/App.css";
+import Loading from "../helpers/Loading";
 
 const GrantPermission = () => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
-  const [hospitalAddress, setHospitalAddress] = useState('');
+  const [hospitalAddress, setHospitalAddress] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const initWeb3 = async () => {
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractAddress = '0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E';
-        const contractInstance = new web3Instance.eth.Contract(ABI, contractAddress);
+        const contractAddress = "0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E";
+        const contractInstance = new web3Instance.eth.Contract(
+          ABI,
+          contractAddress
+        );
         setContract(contractInstance);
       } catch (error) {
-        console.error('ERROR INITIALIZING Web3:', error);
+        console.error("ERROR INITIALIZING Web3:", error);
       }
     };
 
@@ -27,6 +33,7 @@ const GrantPermission = () => {
   useEffect(() => {
     // Call the grantPermission function when formSubmitted state changes to true
     if (contract && formSubmitted) {
+      setIsLoading(true);
       grantPermission();
     }
   }, [contract, formSubmitted]);
@@ -41,38 +48,56 @@ const GrantPermission = () => {
     const accounts = await web3.eth.getAccounts();
     const currentAccount = accounts[0];
     try {
-      
-      await contract.methods.grantAccess(hospitalAddress).send({ from: currentAccount });
+      await contract.methods
+        .grantAccess(hospitalAddress)
+        .send({ from: currentAccount });
       console.log("Access granted for hospital address:", hospitalAddress);
+      alert(`Access Granted for : ${hospitalAddress}`);
+      setHospitalAddress("");
     } catch (error) {
-      console.error('Error calling contract function:', error);
+      console.error("Error calling contract function:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div><br /><br /><br />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Hospital Address:
+    <div className="flex justify-center items-center h-screen">
+      {isLoading && <Loading />}
+      <div className={`content-container ${isLoading ? "blur" : ""}`}></div>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-100 p-8 rounded-md shadow-md"
+      >
+        <div className="mb-4">
+          <label
+            htmlFor="hospitalAddress"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Hospital Address:
+          </label>
           <input
             type="text"
-            placeholder='enter Hospital Address'
+            id="hospitalAddress"
+            name="hospitalAddress"
+            placeholder="Enter Hospital Address"
             value={hospitalAddress}
             onChange={(e) => setHospitalAddress(e.target.value)}
+            className="block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            required
           />
-        </label>
-        <button type="submit" >Grant Access</button>
+        </div>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Grant Access
+          </button>
+        </div>
       </form>
     </div>
   );
 };
-
-
-
-
-
-
-
-
 
 export default GrantPermission;

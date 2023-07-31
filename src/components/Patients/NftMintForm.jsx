@@ -1,22 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Web3Storage } from "web3.storage";
 import { Buffer } from "buffer";
 import { AES } from "crypto-js";
-import CryptoJS from "crypto-js";
 import NftMintContractInteraction from "./MintNftContract";
+import "../../styles/App.css";
 
 window.Buffer = Buffer;
 function makeStorageClient() {
   return new Web3Storage({
     token: process.env.REACT_APP_WEB3STORAGE_TOKEN,
   });
-}
-
-// decrypt data
-function decryptData(encryptedData, key) {
-  const decryptedBytes = AES.decrypt(encryptedData, key);
-  const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
-  return JSON.parse(decryptedData);
 }
 
 const NftMintForm = () => {
@@ -27,40 +20,10 @@ const NftMintForm = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [jsonDataCid, setJsonDataCid] = useState(null);
   const [imageBinaries, setImageBinaries] = useState(null);
-  const [decryptedData, setDecryptedData] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
-
-  async function downloadAndDisplayImages() {
-    if (imageBinaries.length > 0) {
-      const urls = imageBinaries.map((binaryData) => {
-        const blob = new Blob([binaryData]);
-        return URL.createObjectURL(blob);
-      });
-      return urls;
-    }
-    console.log("No image binaries found.");
-    return [];
-  }
-
-  useEffect(() => {
-    // Download and display images when decryptedData changes
-    const fetchImages = async () => {
-      if (decryptedData) {
-        const urls = await downloadAndDisplayImages(decryptedData);
-        setImageUrls(urls);
-        console.log("images binary",imageBinaries);
-      }
-    };
-
-    fetchImages();
-    // Clean up URLs when component unmounts
-    return () => {
-      imageUrls.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [decryptedData]);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     const client = makeStorageClient();
     // Create the data object with other attributes
     const data = {
@@ -81,31 +44,10 @@ const NftMintForm = () => {
 
     try {
       // Upload the data.json file and get its CID
+      // setLoadingSubmit(true);
       const files = [new File([buffer], "data.json")];
       const jsonDataCid = await client.put(files);
       setJsonDataCid(jsonDataCid);
-
-      console.log("Image Binary:", imageBinaries);
-      console.log("Data JSON CID:", jsonDataCid);
-      console.log(`Data JSON URL: https://${jsonDataCid}.ipfs.dweb.link`);
-
-      // Retrieve the encrypted data.json content
-      const response = await fetch(
-        `https://${jsonDataCid}.ipfs.dweb.link/data.json`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch encrypted data.json");
-      }
-      const encryptedDataJson = await response.text();
-
-      console.log("Encrypted Data JSON:", encryptedDataJson); // Log the content
-
-      const decryptedData = decryptData(encryptedDataJson, symmetricKey);
-      console.log("Decrypted Data:", decryptedData);
-
-      setDecryptedData(decryptedData);
-      const imageUrls = await downloadAndDisplayImages();
-      setImageUrls(imageUrls);
       setFormSubmitted(true);
     } catch (error) {
       alert(
@@ -126,7 +68,8 @@ const NftMintForm = () => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          resolve(reader.result);
+          const base64String = Buffer.from(reader.result).toString("base64");
+          resolve(base64String); // Resolve with Base64 string instead of ArrayBuffer
         };
 
         reader.readAsArrayBuffer(file);
@@ -252,7 +195,10 @@ const NftMintForm = () => {
                   </div>
                 </div>
               </div>
-              <NftMintContractInteraction formSubmitted={formSubmitted} jsonDataCid={jsonDataCid} />
+              <NftMintContractInteraction
+                formSubmitted={formSubmitted}
+                jsonDataCid={jsonDataCid}
+              />
               <div className="flex justify-end">
                 <button
                   type="submit"
@@ -261,21 +207,6 @@ const NftMintForm = () => {
                   Submit
                 </button>
               </div>
-              {imageUrls.length > 0 && (
-                <div className="mt-8">
-                  <h2 className="text-xl font-semibold mb-4">Uploaded Images</h2>
-                  <div className="flex flex-wrap">
-                    {imageUrls.map((url, index) => (
-                      <img
-                        key={index}
-                        src={url}
-                        alt={`${index + 1}`}
-                        className="max-w-xs w-full h-auto mb-4 mr-4 rounded-md border border-gray-300"
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
             </form>
           </section>
         </main>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Web3Auth } from "@web3auth/modal";//SafeEventEmitterProvider
+import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import "../../styles/App.css";
@@ -169,7 +169,6 @@ function DoctorProfile() {
     setLoggedIn(false);
   };
 
-  
   const showPatients = async () => {
     window.location.href = "/showPatients";
   };
@@ -183,7 +182,6 @@ function DoctorProfile() {
 
   const loggedInView = (
     <>
-    
       <div className="flex-container">
         <div>
           <button onClick={showPatients} className="card">
@@ -198,7 +196,6 @@ function DoctorProfile() {
       </div>
     </>
   );
-  
 
   const unloggedInView = (
     <button onClick={login} className="card">
@@ -207,11 +204,9 @@ function DoctorProfile() {
   );
 
   return (
-
     <div className="container">
       <h1 className="title">
-        <a href="http://localhost:3000/" rel="noreferrer">
-        </a>
+        <a href="http://localhost:3000/" rel="noreferrer"></a>
       </h1>
 
       <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>

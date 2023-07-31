@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import getWeb3 from '../web3Utils';
-import ABI from '../../ABI/contractAbi.json';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import getWeb3 from "../web3Utils";
+import ABI from "../../ABI/contractAbi.json";
 
 const ShowPatientsNfts = () => {
   const { patientAddress } = useParams();
@@ -14,11 +14,14 @@ const ShowPatientsNfts = () => {
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractAddress = '0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E';
-        const contractInstance = new web3Instance.eth.Contract(ABI, contractAddress);
+        const contractAddress = "0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E";
+        const contractInstance = new web3Instance.eth.Contract(
+          ABI,
+          contractAddress
+        );
         setContract(contractInstance);
       } catch (error) {
-        console.error('ERROR INITIALIZING Web3:', error);
+        console.error("ERROR INITIALIZING Web3:", error);
       }
     };
 
@@ -35,11 +38,15 @@ const ShowPatientsNfts = () => {
     const accounts = await web3.eth.getAccounts();
     const currentAccount = accounts[0];
     try {
-      const tokenIds = await contract.methods.getTokenIdsByAddress(patientAddress).call();
-      const tokenUrls = await Promise.all(tokenIds.map((tokenId) => contract.methods.tokenURI(tokenId).call()));
+      const tokenIds = await contract.methods
+        .getTokenIdsByAddress(patientAddress)
+        .call();
+      const tokenUrls = await Promise.all(
+        tokenIds.map((tokenId) => contract.methods.tokenURI(tokenId).call())
+      );
       setTokenUrls(tokenUrls);
     } catch (error) {
-      console.error('Error calling contract function:', error);
+      console.error("Error calling contract function:", error);
     }
   };
 
