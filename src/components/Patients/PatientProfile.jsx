@@ -199,7 +199,7 @@ function PatientProfile() {
 
 
   const mintNfts = async () => {
-    window.location.href = "http://localhost:3000/NftMint";
+    window.location.href = "http://localhost:3000/NftMintForm";
   };
 
   function uiConsole(...args) {

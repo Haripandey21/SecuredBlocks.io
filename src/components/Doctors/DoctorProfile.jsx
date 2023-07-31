@@ -159,20 +159,6 @@ function DoctorProfile() {
     }
   };
 
-  const getUserData = async () => {
-    const user = await web3auth.getUserInfo();
-    console.log("username : ", user.name);
-    console.log("Id :", user.verifierId);
-
-    const rpc = new RPC(provider);
-
-    const balance = await rpc.getBalance();
-    console.log("Balance : ", balance, "eth");
-
-    const address = await rpc.getAccounts();
-    console.log("Address : ", address);
-  };
-
   const logout = async () => {
     if (!web3auth) {
       uiConsole("web3auth not initialized yet");
@@ -183,14 +169,10 @@ function DoctorProfile() {
     setLoggedIn(false);
   };
 
-  const initiateTopUp = async () => {
-    window.location.href = "https://goerlifaucet.com";
-  };
   
-  const showNfts = async () => {
-    window.location.href = "/showNfts";
+  const showPatients = async () => {
+    window.location.href = "/showPatients";
   };
-
 
   function uiConsole(...args) {
     const el = document.querySelector("#console>p");
@@ -203,21 +185,9 @@ function DoctorProfile() {
     <>
     
       <div className="flex-container">
-      
         <div>
-          <button onClick={initiateTopUp} className="card">
-            Faucet
-          </button>
-        </div>
-        
-        <div>
-          <button onClick={getUserData} className="card">
-           Your Profile 
-          </button>
-        </div>
-        <div>
-          <button onClick={showNfts} className="card">
-            Your Nfts
+          <button onClick={showPatients} className="card">
+            Your Patients
           </button>
         </div>
         <div>

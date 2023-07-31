@@ -41,6 +41,7 @@ const GrantPermission = () => {
     const accounts = await web3.eth.getAccounts();
     const currentAccount = accounts[0];
     try {
+      
       await contract.methods.grantAccess(hospitalAddress).send({ from: currentAccount });
       console.log("Access granted for hospital address:", hospitalAddress);
     } catch (error) {
