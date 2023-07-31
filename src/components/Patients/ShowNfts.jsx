@@ -25,9 +25,10 @@ const ShowNfts = () => {
         (base64String) => Uint8Array.from(Buffer.from(base64String, "base64"))
       );
 
-      const urls = imageBinariesArrayBuffer.map((binaryData) => {
-        const blob = new Blob([binaryData]);
-        return URL.createObjectURL(blob);
+      const urls = imageBinariesArrayBuffer.map((binaryData, index) => {
+        const blob = new Blob([binaryData], { type: "image/png" }); // Adjust the image type based on the actual format (e.g., "image/jpeg")
+        const imageUrl = URL.createObjectURL(blob);
+        return { url: imageUrl, index: index + 1 };
       });
       return urls;
     }
@@ -35,12 +36,29 @@ const ShowNfts = () => {
     return [];
   }
 
+  const displayImagesInNewWindow = (urls) => {
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.write("<html><body>");
+      urls.forEach((urlData) => {
+        win.document.write(
+          `<img src="${urlData.url}" alt="NFT Image ${urlData.index}"><br>`
+        );
+      });
+      win.document.write("</body></html>");
+      win.document.close();
+    } else {
+      console.error("Unable to open new window.");
+    }
+  };
+
   useEffect(() => {
     // Download and display images when decryptedData changes
     const fetchImages = async () => {
       if (decryptedData) {
         const urls = await downloadAndDisplayImages();
         setImageUrls(urls);
+        displayImagesInNewWindow(urls);
       }
     };
 
@@ -83,6 +101,7 @@ const ShowNfts = () => {
     }
 
     try {
+      // Get the current connected account from MetaMask
       const accounts = await web3.eth.getAccounts();
       const currentAccount = accounts[0];
       const tokenIds = await contract.methods
@@ -130,21 +149,6 @@ const ShowNfts = () => {
           <h2>TokenID: {tokenId}</h2>
         </button>
       ))}
-      {imageUrls.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Uploaded Images</h2>
-          <div className="flex flex-wrap">
-            {imageUrls.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`${index + 1}`}
-                className="max-w-xs w-full h-auto mb-4 mr-4 rounded-md border border-gray-300"
-              />
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

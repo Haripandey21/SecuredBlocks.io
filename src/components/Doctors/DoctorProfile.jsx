@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Web3Auth } from "@web3auth/modal";
+import { Web3Auth } from "@web3auth/modal"; //SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import "../../styles/App.css";

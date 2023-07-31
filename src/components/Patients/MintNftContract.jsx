@@ -52,7 +52,7 @@ const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
   return (
     <div>
       {/* Conditionally render the Loading component */}
-      {isLoading && <Loading/>}
+      {isLoading && <Loading />}
 
       {/* Blur the form when isLoading is true */}
       <div className={`nft-form ${isLoading ? "blurred" : ""}`}>

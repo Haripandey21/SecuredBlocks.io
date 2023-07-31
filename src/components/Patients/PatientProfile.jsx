@@ -254,10 +254,9 @@ function PatientProfile() {
   return (
     <div className="container">
       <h1 className="title">
-        <a href="http://localhost:3000/" rel="noreferrer">
-          {" "}
-        </a>
+        <a href="http://localhost:3000/" rel="noreferrer"></a>
       </h1>
+
       <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
     </div>
   );
