@@ -81,6 +81,8 @@ const NftMintForm = () => {
   }
 
   return (
+    <div style={{ backgroundImage: `url("/background.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>    
+
     <div>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center">
@@ -211,6 +213,8 @@ const NftMintForm = () => {
           </section>
         </main>
       </div>
+      </div>
+
     </div>
   );
 };

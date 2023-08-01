@@ -205,54 +205,72 @@ function PatientProfile() {
     }
   }
 
+  const commonButtonClass = "relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800";
+  const commonSpanClass ="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+
   const loggedInView = (
     <>
-    
       <div className="flex-container">
         <div>
-          <button onClick={initiateTopUp} className="card">
-            Faucet
+          <button onClick={initiateTopUp} className={commonButtonClass}>
+            <span className={commonSpanClass}>
+            Get Tokens
+            </span>
           </button>
         </div>
         <div>
-          <button onClick={mintNfts} className="card">
-            Mint Nfts
+          <button onClick={mintNfts} className={commonButtonClass}>
+          <span className={commonSpanClass}>
+            Upload Data
+            </span>
           </button>
         </div>
         <div>
-          <button onClick={grantAccess} className="card">
+          <button onClick={showNfts} className={commonButtonClass}>
+          <span className={commonSpanClass}>
+            Your Records
+            </span>
+          </button>
+        </div>
+        <div>
+          <button onClick={grantAccess} className={commonButtonClass}>
+          <span className={commonSpanClass}>
             Grant Access
+            </span>
           </button>
         </div>
         <div>
-          <button onClick={hospitalList} className="card">
+          <button onClick={hospitalList} className={commonButtonClass}>
+          <span className={commonSpanClass}>
             Hospital Lists
+            </span>
           </button>
         </div>
         <div>
-          <button onClick={showNfts} className="card">
-            Your Nfts
-          </button>
-        </div>
-        <div>
-          <button onClick={logout} className="card">
+          <button onClick={logout} className={commonButtonClass}>
+          <span className={commonSpanClass}>
             Log Out
+            </span>
           </button>
         </div>
-      </div>
-      <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
       </div>
     </>
   );
+  
+  
 
   const unloggedInView = (
-    <button onClick={login} className="card">
-      Login/ Connect Wallet
-    </button>
+    <button onClick={login} class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+  Login/ Connect Wallet
+  </span>
+</button>
+    
   );
 
   return (
+    <div style={{ backgroundImage: `url("/background.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>    
+
     <div>
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
     
@@ -281,6 +299,7 @@ function PatientProfile() {
       </h1>
 
       <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
+    </div>
     </div>
     </div>
   );
