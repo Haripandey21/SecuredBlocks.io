@@ -44,6 +44,7 @@ const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
       setIsLoading(false);
       alert("Minted successfully!");
       console.log("Minted");
+      window.location.reload();
     } catch (error) {
       console.error("Error calling contract function:", error);
     }

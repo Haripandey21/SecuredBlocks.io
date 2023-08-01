@@ -269,7 +269,7 @@ function PatientProfile() {
   );
 
   return (
-    <div style={{ backgroundImage: `url("/background.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>    
+    <div style={{ backgroundImage: `url("/bg1.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>    
 
     <div>
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
