@@ -4,6 +4,7 @@ const Login = () => {
   return (
 
     <div style={{ backgroundImage: `url("/bg.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
+
       <div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
 
@@ -31,17 +32,47 @@ const Login = () => {
 
         </nav>
         <div>
-          <br />
-          <p>Sign as : </p>
-        <div className="flex mt-4 space-x-3 md:mt-6">
-                  <a href="/PatientProfile" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Patient</a>
-                  <a href="/DoctorProfile" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Hospital</a>
+          <br /><br /><br />
+          <div class="ml-auto">
+            <p class="w-4/6 text-gray-900 text-6xl dark:text-white bg-slate-500">Building a healthier tomorrow</p>
+            <br />
+            <p class="w-2/5 text-gray-900 text-5xl dark:text-white bg-slate-700">with secure data  !!</p>
+          </div>
+          <div class="ml-auto mt-[-80px]">
+            <div className="flex items-center justify-center h-screen">
+              <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-100">
+                <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-100">
+                  <div className="flex justify-end px-4 pt-4">
+                  </div>
+                  <div className="flex flex-col items-center pb-10">
+                    <span className="text-sm text-dark-500 dark:text-dark">Login As  </span>
+                    <div className="flex mt-4 space-x-3 md:mt-6">
+                      <a href="/PatientProfile" className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Patient</a>
+                      <a href="/DoctorProfile" className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Hospital</a>
+                    </div>
+                  </div>
                 </div>
-                </div>
-        
+
+              </div>
+            </div>
+          </div>
+
         </div>
+        <div class="cube-container">
+          <div class="cube">
+            <div class="face front">Security</div>
+            <div class="face back">Decentralized</div>
+            <div class="face right">Access</div>
+            <div class="face left">Privacy</div>
+            <div class="face top">Immutable</div>
+            <div class="face bottom">Revoke</div>
+          </div>
+        </div>
+
+
       </div>
-    
+    </div>
+
   );
 };
 

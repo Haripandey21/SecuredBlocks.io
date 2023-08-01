@@ -204,12 +204,13 @@ function DoctorProfile() {
   );
 
   return (
-    <div className="container">
-      <h1 className="title">
-        <a href="http://localhost:3000/" rel="noreferrer"></a>
-      </h1>
-
-      <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
+    <div style={{ backgroundImage: `url("/bg.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
+      <div className="container">
+        <h1 className="title">
+          <a href="http://localhost:3000/" rel="noreferrer"></a>
+        </h1>
+        <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
+      </div>
     </div>
   );
 }

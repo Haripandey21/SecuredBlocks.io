@@ -47,19 +47,22 @@ const ShowPatients = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-4">Your patients :</h1>
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {patientsLists.map((patient, index) => (
-          <Link to={`/showPatientsNfts/${patient}`} key={index}>
-            <div className="bg-white shadow-lg rounded-lg p-4">
-              <h5 className="text-lg font-semibold mb-2">
-                Patient {index + 1}
-              </h5>
-              Address : <p className="text-gray-600">{patient}</p>
-            </div>
-          </Link>
-        ))}
+    <div style={{ backgroundImage: `url("/bg.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
+
+      <div>
+        <h1 className="text-2xl font-semibold mb-4">Your patients :</h1>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {patientsLists.map((patient, index) => (
+            <Link to={`/showPatientsNfts/${patient}`} key={index}>
+              <div className="bg-white shadow-lg rounded-lg p-4">
+                <h5 className="text-lg font-semibold mb-2">
+                  Patient {index + 1}
+                </h5>
+                Address : <p className="text-gray-600">{patient}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
