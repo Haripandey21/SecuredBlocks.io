@@ -8,6 +8,7 @@ import MintNftContract from "./components/Patients/MintNftContract";
 import GrantPermission from "./components/Patients/GrantPermission";
 import "./styles/App.css";
 import HospitalsList from "./components/Patients/HospitalsList";
+
 import ShowPatients from "./components/Doctors/ShowPatients";
 import ShowPatientsNfts from "./components/Doctors/ShowPatientsNfts";
 
@@ -23,10 +24,10 @@ export default function App() {
         <Route path="/MintNftContract" element={<MintNftContract />} />
         <Route path="/GrantPermission" element={<GrantPermission />} />
         <Route path="/HospitalsList" element={<HospitalsList />} />
-        
         <Route path="/ShowPatients" element={<ShowPatients />} />
         <Route path="/ShowPatientsNfts" element={<ShowPatientsNfts />}>
           <Route path=":patientAddress" element={<ShowPatientsNfts />} />
+
         </Route>
 
         {/* Fallback route for unknown paths */}
