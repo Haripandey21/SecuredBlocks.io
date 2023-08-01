@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PatientProfile from "./components/Patients/PatientProfile";
-import GetStarted from "./components/GetStarted";
-import Login from "./components/Login";
+import Home from "./components/Home";
 import DoctorProfile from "./components/Doctors/DoctorProfile";
 import NftMintForm from "./components/Patients/NftMintForm";
 import ShowNfts from "./components/Patients/ShowNfts";
@@ -16,8 +15,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<GetStarted />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/PatientProfile" element={<PatientProfile />} />
         <Route path="/NftMintForm" element={<NftMintForm />} />
         <Route path="/ShowNfts" element={<ShowNfts />} />

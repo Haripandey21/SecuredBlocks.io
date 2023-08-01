@@ -101,7 +101,6 @@ const ShowNfts = () => {
     }
 
     try {
-      // Get the current connected account from MetaMask
       const accounts = await web3.eth.getAccounts();
       const currentAccount = accounts[0];
       const tokenIds = await contract.methods
