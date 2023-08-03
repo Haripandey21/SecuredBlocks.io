@@ -192,7 +192,7 @@ function DoctorProfile() {
   const secureDataQuote = (
     <div
       className="card2"
-      style={{ position: "absolute", top: "250px", left: "350px" }}
+      style={{ position: "absolute", top: "250px", left: "200px" }}
     >
       <h1 className="heading">
         Unlock the power of data with seamless management - it's the heartbeat

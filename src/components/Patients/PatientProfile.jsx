@@ -201,7 +201,7 @@ function PatientProfile() {
   const secureDataQuote = (
     <div
       className="card2"
-      style={{ position: "absolute", top: "250px", left: "10px" }}
+      style={{ position: "absolute", top: "250px", left: "40px" }}
     >
       <h1 className="heading">
         In the pursuit of health, armor your medical data with an unyielding

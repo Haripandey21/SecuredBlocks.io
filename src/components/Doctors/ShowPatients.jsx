@@ -72,15 +72,17 @@ const ShowPatients = () => {
           </nav>
         </nav>
         <div>
-          <h1 className="text-2xl font-semibold mb-4">Your patients :</h1>
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <br /><br />            <br /><br />
             {patientsLists.map((patient, index) => (
               <Link to={`/showPatientsNfts/${patient}`} key={index}>
+                <div className="patient-nft-card">
                 <div className="bg-white shadow-lg rounded-lg p-4">
                   <h5 className="text-lg font-semibold mb-2">
                     Patient {index + 1}
                   </h5>
                   Address : <p className="text-gray-600">{patient}</p>
+                </div>
                 </div>
               </Link>
             ))}
