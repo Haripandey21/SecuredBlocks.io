@@ -17,6 +17,7 @@ function PatientProfile() {
   const [web3auth, setWeb3auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
   useEffect(() => {
     const init = async () => {
       try {
@@ -160,16 +161,9 @@ function PatientProfile() {
   const getUserData = async () => {
     const user = await web3auth.getUserInfo();
     console.log("username : ", user.name);
-    console.log("Id :", user.verifierId);
-
-    const rpc = new RPC(provider);
-
-    const balance = await rpc.getBalance();
-    console.log("Balance : ", balance, "eth");
-
-    const address = await rpc.getAccounts();
-    console.log("Address : ", address);
+    setUserName(user.name);
   };
+  getUserData();
 
   const logout = async () => {
     if (!web3auth) {
@@ -204,103 +198,132 @@ function PatientProfile() {
       el.innerHTML = JSON.stringify(args || {}, null, 2);
     }
   }
-
-  const commonButtonClass = "relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800";
-  const commonSpanClass = "relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+  const secureDataQuote = (
+    <div
+      className="card2"
+      style={{ position: "absolute", top: "250px", left: "10px" }}
+    >
+      <h1 className="heading">
+        In the pursuit of health, armor your medical data with an unyielding
+        defense, protecting it like never before !!{" "}
+      </h1>
+      <p>with SecuredBlocks.io</p>
+    </div>
+  );
+  const commonButtonClass =
+    "relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800";
+  const commonSpanClass =
+    "relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0";
 
   const loggedInView = (
     <>
-      <div className="flex-container">
-        <div>
-          <button onClick={initiateTopUp} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Get Tokens
-            </span>
-          </button>
-        </div>
-        <div>
-          <button onClick={mintNfts} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Upload Data
-            </span>
-          </button>
-        </div>
-        <div>
-          <button onClick={showNfts} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Your Records
-            </span>
-          </button>
-        </div>
-        <div>
-          <button onClick={grantAccess} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Grant Access
-            </span>
-          </button>
-        </div>
-        <div>
-          <button onClick={hospitalList} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Hospital Lists
-            </span>
-          </button>
-        </div>
-        <div>
-          <button onClick={logout} className={commonButtonClass}>
-            <span className={commonSpanClass}>
-              Log Out
-            </span>
-          </button>
-        </div>
+      <br />
+      <div
+        style={{ display: "flex", alignItems: "center", paddingRight: "500px" }}
+      >
+        <p className=" text-1xl dark:text-white">Welcome, {userName} !!</p>
       </div>
+      <>
+        <div className="container">
+          <div className="grid">
+            <button onClick={initiateTopUp} className={commonButtonClass}>
+              <span className={commonSpanClass}>Get Tokens</span>
+            </button>
+
+            <button onClick={mintNfts} className={commonButtonClass}>
+              <span className={commonSpanClass}>Upload Data</span>
+            </button>
+
+            <button onClick={showNfts} className={commonButtonClass}>
+              <span className={commonSpanClass}>Your Records</span>
+            </button>
+
+            <button onClick={grantAccess} className={commonButtonClass}>
+              <span className={commonSpanClass}>Grant Access</span>
+            </button>
+
+            <button onClick={hospitalList} className={commonButtonClass}>
+              <span className={commonSpanClass}>Hospital Lists</span>
+            </button>
+          </div>
+        </div>
+      </>
     </>
   );
 
-
-
   const unloggedInView = (
-    <button onClick={login} class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-      <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-        Login/ Connect Wallet
+    <button
+      onClick={login}
+      class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
+    >
+      <span class="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        LogIn / Connect Wallet
       </span>
     </button>
-
   );
 
   return (
-    <div style={{ backgroundImage: `url("/bg1.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
-
+    <div
+      style={{
+        backgroundImage: `url("/bg.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+      }}
+    >
       <div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
-
           <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
               <a href="/" className="flex items-center">
-                <img src="/logo.png" className="h-8 mr-3" alt="SecuredBlocks Logo" />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SecuredBlocks</span>
+                <img
+                  src="https://flowbite.com/docs/images/logo.svg"
+                  className="h-8 mr-3"
+                  alt="SecuredBlocks Logo"
+                />
+                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                  SecuredBlocks
+                </span>
               </a>
-              <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+              <button
+                data-collapse-toggle="navbar-default"
+                type="button"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default"
+                aria-expanded="false"
+              >
                 <span className="sr-only">Open main menu</span>
               </button>
-              <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+              <div
+                className="hidden w-full md:block md:w-auto"
+                id="navbar-default"
+              >
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                  <li>
-                    <a href="/" onClick={logout} className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Log Out </a>
-                  </li>
+                  {loggedIn && (
+                    <li>
+                      <a
+                        href="/"
+                        onClick={logout}
+                        className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                      >
+                        Log Out{" "}
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
-
-
           </nav>
         </nav>
+
         <div className="container">
           <h1 className="title">
             <a href="http://localhost:3000/" rel="noreferrer"></a>
           </h1>
 
           <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
+          {secureDataQuote}
         </div>
       </div>
     </div>

@@ -1,10 +1,38 @@
-
 .container {
 	width: 80%;
 	margin: auto;
 	padding: 0 2rem;
-}
+  }
+  
+  /* Add a vertical line between the buttons */
+  .container::before {
+	content: '';
+	position: absolute;
+	left: 80%; /* Position at the center */
+	top: 0;
+	bottom: 0;
+	width: 3px; /* Line thickness */
+	background-color: #abebeb; /* Line color */
+	transform: translateX(-50%); /* Move the line to the left by half its width to center it */
+  }
+  
+  .grid {
+	display: grid;
+	gap: 30px; /* Adjust this value to change the spacing between the buttons */
+	position: relative; /* Add this to make absolute positioning work properly */
+	margin-left: 320px;
+	margin-top: -40px;
+  }
+  
 
+  
+  .hometext{
+	left :20px;
+  }
+  .hospital-text{
+	left :100px;
+  }
+ 
 .main {
 	min-height: 100vh;
 	padding: 4rem 0;
@@ -135,7 +163,7 @@
   .nftcard {
 	width: 190px;
 	height: 254px;
-	background: #07182E;
+	background: #1f0901;
 	position: relative;
 	display: flex;
 	place-content: center;
@@ -173,7 +201,7 @@
   .nftcard::after {
 	content: '';
 	position: absolute;
-	background: #38485e;
+	background: #424d73;
 	;
 	inset: 5px;
 	border-radius: 15px;
@@ -367,5 +395,106 @@
 	}
   }
   
+  /* ------------------------card- homepage of patients-------  */
+  .card2 {
+	position: relative;
+	width: 600px;
+	height: 264px;
+	background-color: #141111ab;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	padding: 12px;
+	gap: 12px;
+	border-radius: 8px;
+	cursor: pointer;
+  }
+
+  .heading {
+	font-size: 30px;
+	color: #e81cff;
+	font-weight: 600;
+	text-transform: capitalize;
+	font-weight: 700;
+  }
+  
+  .card2 p:not(.heading) {
+	font-size: 14px;
+  }
+  
+  .card2 p:last-child {
+	color: #1db7e6;
+	font-weight: 600;
+  }
+  
+
+  /* home page card  */
+  .card3 {
+	position: relative;
+	width: 300px;
+	height: 100px;
+	top: 200px;
+	left:550px;
+	border-radius: 14px;
+	z-index: 1111;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 5px 5px 5px #bebebe, -5px -5px 20px #ffffff;
+	;
+  }
+  
+  .bg {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 290px;
+	height: 90px;
+	z-index: 2;
+	background: rgba(233, 229, 236, 0.95);
+	backdrop-filter: blur(4px);
+	border-radius: 10px;
+	overflow: hidden;
+	outline: 3px solid white;
+  }
+  
+  .blob {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	background-color: #ff0000;
+	opacity: 1;
+	filter: blur(12px);
+	animation: blob-bounce 0.5s infinite ease;
+  }
+  
+  @keyframes blob-bounce {
+	0% {
+	  transform: translate(-100%, -100%) translate3d(0, 0, 0);
+	}
+  
+	25% {
+	  transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+	}
+  
+	50% {
+	  transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+	}
+  
+	75% {
+	  transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+	}
+  
+	100% {
+	  transform: translate(-100%, -100%) translate3d(0, 0, 0);
+	}
+  }
+   
   
   

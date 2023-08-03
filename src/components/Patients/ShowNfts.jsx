@@ -18,6 +18,7 @@ const ShowNfts = () => {
   const [tokenUrls, setTokenUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [decryptedData, setDecryptedData] = useState(null);
+  const [tokenCount, setTokenCount] = useState("");
 
   async function downloadAndDisplayImages() {
     if (decryptedData && decryptedData.imageBinaries.length > 0) {
@@ -76,7 +77,7 @@ const ShowNfts = () => {
         setWeb3(web3Instance);
         const contractInstance = new web3Instance.eth.Contract(
           ABI,
-          "0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E"
+          "0xD004585023a799C7Ac3dba15FC513Dcf155b508D"
         );
         setContract(contractInstance);
       } catch (error) {
@@ -107,6 +108,8 @@ const ShowNfts = () => {
         .getTokenIdsByAddress(currentAccount)
         .call();
       setTokenIds(tokenIds);
+      const tokenIdCount = await tokenIds.length;
+      setTokenCount(tokenIdCount);
 
       // Fetch tokenURLs for each tokenId using Promise.all
       const tokenUrls = await Promise.all(
@@ -138,37 +141,76 @@ const ShowNfts = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url("/bg1.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
+    <div
+      style={{
+        backgroundImage: `url("/bg.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+      }}
+    >
       <div>
-        <div style={{ backgroundImage: `url("/bg1.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
-
+        <div
+          style={{
+            backgroundImage: `url("/bg1.png")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            minHeight: "100vh",
+          }}
+        >
           <div>
             <nav className="bg-white border-gray-200 dark:bg-gray-900">
-
               <nav className="bg-white border-gray-200 dark:bg-gray-900">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                   <a href="/" className="flex items-center">
-                    <img src="/logo.png" className="h-8 mr-3" alt="SecuredBlocks Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SecuredBlocks</span>
+                    <img
+                      src="/logo.png"
+                      className="h-8 mr-3"
+                      alt="SecuredBlocks Logo"
+                    />
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                      SecuredBlocks
+                    </span>
                   </a>
-                  <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                  <button
+                    data-collapse-toggle="navbar-default"
+                    type="button"
+                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-default"
+                    aria-expanded="false"
+                  >
                     <span className="sr-only">Open main menu</span>
                   </button>
-                  <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+                  <div
+                    className="hidden w-full md:block md:w-auto"
+                    id="navbar-default"
+                  >
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                       <li>
-                        <a href="/" className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Log Out </a>
+                        <a
+                          href="/PatientProfile"
+                          className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                        >
+                          Home{" "}
+                        </a>
                       </li>
                     </ul>
                   </div>
                 </div>
-
-
-
-
               </nav>
-            </nav><br />
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+            </nav>
+            <br />
+            <br />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexWrap: "wrap",
+                gap: "5rem",
+              }}
+            >
               {tokenIds.map((tokenId) => (
                 <button
                   key={tokenId}
@@ -179,13 +221,11 @@ const ShowNfts = () => {
                 </button>
               ))}
             </div>
-
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default ShowNfts;

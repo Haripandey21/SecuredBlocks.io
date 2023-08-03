@@ -12,7 +12,7 @@ const MintNftContract = ({ formSubmitted, jsonDataCid }) => {
       try {
         const web3Instance = await getWeb3();
         setWeb3(web3Instance);
-        const contractAddress = "0xfE976Fc362E64c4Ef7638B2D64EA52608479b05E";
+        const contractAddress = "0xD004585023a799C7Ac3dba15FC513Dcf155b508D";
         const contractInstance = new web3Instance.eth.Contract(
           ABI,
           contractAddress
