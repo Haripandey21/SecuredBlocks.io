@@ -41,9 +41,12 @@ const ShowNfts = () => {
     const win = window.open("", "_blank");
     if (win) {
       win.document.write("<html><body>");
+      win.document.write(
+        '<style>body { display: flex;}</style>'
+      );
       urls.forEach((urlData) => {
         win.document.write(
-          `<img src="${urlData.url}" alt="NFT Image ${urlData.index}"><br>`
+          `<img class="imge" src="${urlData.url}" alt="NFT Image ${urlData.index}"><br>`
         );
       });
       win.document.write("</body></html>");

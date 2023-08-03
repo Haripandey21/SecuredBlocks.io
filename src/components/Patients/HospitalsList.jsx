@@ -149,12 +149,9 @@ const HospitalsList = () => {
               <p className="text-1xl font-thin text-gray-900 dark:text-white">
                 {address}
               </p>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={() => handleRevokeAccess(address)}
-              >
-                Revoke Access
-              </button>
+              <br />
+              <button className="bg-red-500 text-white px-4 py-2 rounded"
+                onClick={() => handleRevokeAccess(address)} id="btn1">Revoke Access</button>
             </div>
           ))}
         </div>
