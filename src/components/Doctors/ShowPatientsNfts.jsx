@@ -137,23 +137,33 @@ const ShowPatientsNfts = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url("/bg.png")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: "100vh" }}>
-
-      <div>
-        <h1 className="text-2xl font-semibold mb-4">Patient's NFTs :</h1>
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-          {tokenIds.map((tokenId, index) => (
-            <button
-              key={index}
-              className="bg-white shadow-lg rounded-lg p-4"
-              onClick={() => handleCardClick(tokenId)}
+    <div
+      style={{
+        backgroundImage: `url("/bg.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+      }}
+    ><br /><br /><br />
+     <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexWrap: "wrap",
+                gap: "5rem",
+              }}
             >
-              <h5 className="nftcard">Token {index + 1}</h5>
-              Token URL : <p className="text-gray-600">{tokenId}</p>
-            </button>
-          ))}
-        </div>
-      </div>
+              {tokenIds.map((tokenId) => (
+                <button
+                  key={tokenId}
+                  className="nftcard"
+                  onClick={() => handleCardClick(tokenId)}
+                >
+                  <h2>TokenID: {tokenId}</h2>
+                </button>
+              ))}
+            </div>
     </div>
   );
 };

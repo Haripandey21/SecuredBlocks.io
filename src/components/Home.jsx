@@ -4,7 +4,7 @@ const Login = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("/bg.png")`,
+        backgroundImage: `url("/bghome.png")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -66,55 +66,16 @@ const Login = () => {
           <br />
           <br />
           <br />
-          <div className="hometext ml-10">
-            <div className="ml-auto">
-              <p className=" text-gray-900 text-6xl dark:text-white ">
-                Building a healthier tomorrow
-              </p>
-              <br />
-              <p className=" text-gray-900 text-5xl dark:text-white">
-                with secure data !!
-              </p>
-            </div>
-          </div>
-          <div className="card3">
-            <div className="bg">
-              <div className="font-extrabold flex flex-col items-center pb-10">
-                <span className="text-sm text-dark-500 dark:text-dark">
-                  Login As{" "}
-                </span>
-                <div className="flex mt-4 space-x-3 md:mt-6">
-                  <a
-                    href="/PatientProfile"
-                    className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                  >
-                    Patient
-                  </a>
-                  <a
-                    href="/DoctorProfile"
-                    className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  >
-                    Hospital
-                  </a>
-                </div>
-              </div>
-            </div>
 
-            <div class="blob"></div>
-          </div>
-
-          <br />
-        </div>
-        <div class="cube-container">
-          <div class="cube">
-            <div class="face front">Security</div>
-            <div class="face back">Decentralized</div>
-            <div class="face right">Access</div>
-            <div class="face left">Privacy</div>
-            <div class="face top">Immutable</div>
-            <div class="face bottom">Revoke</div>
+          <div className="btns">
+            <a href="/PatientProfile">
+            <button  className="buttonpat ">Patient</button></a>
+            <a href="./DoctorProfile">
+            <button className="buttonhos type1">Hospital</button></a>
           </div>
         </div>
+
+        <br />
       </div>
     </div>
   );
