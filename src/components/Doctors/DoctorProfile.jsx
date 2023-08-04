@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal"; //SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import "../../styles/DocProfile.css"
+import "../../styles/DocProfile.css";
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -29,7 +29,7 @@ function DoctorProfile() {
           },
           uiConfig: {
             appName: "SecuredBlocks",
-            appLogo: "favicon.png",
+            appLogo: "logo.png",
             theme: "light",
             loginMethodsOrder: ["apple", "google", "twitter"],
             defaultLanguage: "en",
@@ -47,8 +47,8 @@ function DoctorProfile() {
             uxMode: "popup", // "redirect" | "popup"
             whiteLabel: {
               name: "Your app Name",
-              logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
-              logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
+              logoLight: "https://web3auth.io/images/logo.png",
+              logoDark: "https://web3auth.io/images/logo.png",
               defaultLanguage: "en",
               dark: false,
             },
@@ -175,7 +175,8 @@ function DoctorProfile() {
 
   const loggedInView = (
     <>
-      <div className="yurptn"
+      <div
+        className="yurptn"
         style={{
           alignItems: "center", // Center horizontally
           position: "absolute",
@@ -184,13 +185,16 @@ function DoctorProfile() {
           transform: "translate(-50%, -50%)", // Center the content using negative margins
         }}
       >
-        <button className="tugra" onClick={showPatients}>Your Patients</button>
+        <button className="tugra" onClick={showPatients}>
+          Your Patients
+        </button>
       </div>
     </>
   );
 
   const secureDataQuote = (
-    <div className="boxx"
+    <div
+      className="boxx"
       style={{
         display: "flex", // Set display to flex
         justifyContent: "center", // Center horizontally
@@ -203,14 +207,17 @@ function DoctorProfile() {
     >
       <h1 className="dark:text-white">
         Hello <span style={{ color: "red" }}>{hospitalData}</span> hospital !!
-        <br />Welcome to SecuredBlocks view your patients data here:
-      </h1><br />
+        <br />
+        Welcome to SecuredBlocks view your patients data here:
+      </h1>
+      <br />
     </div>
   );
 
   const secureDataQuote2 = (
     <div>
-      <div className="quote"
+      <div
+        className="quote"
         style={{
           textAlign: "center", // Center vertically
           position: "absolute",
@@ -221,15 +228,19 @@ function DoctorProfile() {
       >
         <h1 className="koro dark:text-white">
           Unlock the power of data with seamless management - it's the heartbeat
-          of a modern hospital!!{" "} <br />with <span 
-         className="text-4xl" style={{ color: "blue" }}>SecuredaBlocks.io</span>
+          of a modern hospital!! <br />
+          with{" "}
+          <span className="text-4xl" style={{ color: "blue" }}>
+            SecuredaBlocks.io
+          </span>
         </h1>
       </div>
     </div>
   );
 
   const unloggedInView = (
-    <div className="yurptn2"
+    <div
+      className="yurptn2"
       style={{
         display: "flex", // Set display to flex
         flexDirection: "column", // Stack items vertically
@@ -238,7 +249,8 @@ function DoctorProfile() {
         top: "50%", // Adjust the position from top
         left: "50%", // Adjust the position from left
         transform: "translate(-50%, -50%)", // Center the content using negative margins
-      }}>
+      }}
+    >
       <button
         onClick={login}
         class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
@@ -246,7 +258,8 @@ function DoctorProfile() {
         <span class="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
           LogIn / Connect Wallet
         </span>
-      </button>{secureDataQuote2}
+      </button>
+      {secureDataQuote2}
     </div>
   );
 
@@ -265,7 +278,7 @@ function DoctorProfile() {
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" className="flex items-center">
               <img
-                src="https://flowbite.com/docs/images/logo.svg"
+                src="/logo.png"
                 className="h-8 mr-3"
                 alt="SecuredBlocks Logo"
               />
@@ -279,11 +292,11 @@ function DoctorProfile() {
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-default"
               aria-expanded="false"
-            >
-            </button>
+            ></button>
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {loggedIn && (
-                <li>{secureDataQuote}
+                <li>
+                  {secureDataQuote}
                   <a
                     href="/"
                     onClick={logout}

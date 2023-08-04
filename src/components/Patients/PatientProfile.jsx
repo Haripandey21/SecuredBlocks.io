@@ -30,7 +30,7 @@ function PatientProfile() {
           },
           uiConfig: {
             appName: "SecuredBlocks",
-            appLogo: "favicon.png",
+            appLogo: "logo.png",
             theme: "light",
             loginMethodsOrder: ["apple", "google", "twitter"],
             defaultLanguage: "en",
@@ -48,8 +48,8 @@ function PatientProfile() {
             uxMode: "popup", // "redirect" | "popup"
             whiteLabel: {
               name: "Your app Name",
-              logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
-              logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
+              logoLight: "https://web3auth.io/images/logo.png",
+              logoDark: "https://web3auth.io/images/logo.png",
               defaultLanguage: "en",
               dark: false,
             },
@@ -278,7 +278,7 @@ function PatientProfile() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
               <a href="/" className="flex items-center">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
+                   src="/logo.png"
                   className="h-8 mr-3"
                   alt="SecuredBlocks Logo"
                 />
