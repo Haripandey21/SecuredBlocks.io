@@ -423,6 +423,11 @@
 	  transform: translate(-100%, -100%) translate3d(0, 0, 0);
 	}
   }
+
+  .pat-btn{
+	padding-top: 396px;
+	padding-left: 40px;
+  }
    
   
   /* button for grant access */
@@ -602,8 +607,20 @@
   }
 
   .btns {
-	padding-left: 200px;
+	padding-left: 100px;
 	padding-top: 380px;
 	display: flex;
 	gap: 20px; 
+  }
+
+  /* ---------- */
+
+  .show-patient-text{
+	padding-left: 400px;
+	
+  }
+
+  .patient-name{
+	padding-right: 700px;
+	padding-top: 20px;
   }

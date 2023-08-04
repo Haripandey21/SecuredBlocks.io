@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal"; //SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import "../../styles/App.css";
-import RPC from "../../web3RPC"; // for using web3.js
+import "../../styles/DocProfile.css"
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -17,7 +16,7 @@ function DoctorProfile() {
   const [web3auth, setWeb3auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [hospitalData, setHospitalData] = useState(null);
   useEffect(() => {
     const init = async () => {
       try {
@@ -144,19 +143,6 @@ function DoctorProfile() {
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
     setLoggedIn(true);
-
-    // Check if the connected network is Goerli
-    const connectedNetwork = web3authProvider.networkId;
-    if (connectedNetwork === "0x5") {
-      // Create a Goerli account for the user
-      const rpc = new RPC(web3authProvider);
-      const accounts = await rpc.getAccounts();
-      if (accounts.length > 0) {
-        const goerliAccount = accounts[0];
-        console.log("Goerli Account:", goerliAccount);
-        // Use the goerliAccount for further operations
-      }
-    }
   };
 
   const logout = async () => {
@@ -168,6 +154,13 @@ function DoctorProfile() {
     setProvider(null);
     setLoggedIn(false);
   };
+
+  const getHospitalData = async () => {
+    const user = await web3auth.getUserInfo();
+    console.log("username : ", user.name);
+    setHospitalData(user.name);
+  };
+  getHospitalData();
 
   const showPatients = async () => {
     window.location.href = "/showPatients";
@@ -182,35 +175,79 @@ function DoctorProfile() {
 
   const loggedInView = (
     <>
-      <div>
-        <button onClick={showPatients}>Your Patients</button>
+      <div className="yurptn"
+        style={{
+          alignItems: "center", // Center horizontally
+          position: "absolute",
+          top: "50%", // Adjust the position from top
+          left: "50%", // Adjust the position from left
+          transform: "translate(-50%, -50%)", // Center the content using negative margins
+        }}
+      >
+        <button className="tugra" onClick={showPatients}>Your Patients</button>
       </div>
-    
     </>
   );
 
   const secureDataQuote = (
-    <div
-      className="card2"
-      style={{ position: "absolute", top: "250px", left: "200px" }}
+    <div className="boxx"
+      style={{
+        display: "flex", // Set display to flex
+        justifyContent: "center", // Center horizontally
+        textAlign: "center", // Center vertically
+        position: "absolute",
+        top: "50%", // Adjust the position from top
+        left: "50%", // Adjust the position from left
+        transform: "translate(-50%, -50%)", // Center the content using negative margins
+      }}
     >
-      <h1 className="heading">
-        Unlock the power of data with seamless management - it's the heartbeat
-        of a modern hospital!!{" "}
-      </h1>
-      <p>with SecuredBlocks.io</p>
+      <h1 className="dark:text-white">
+        Hello <span style={{ color: "red" }}>{hospitalData}</span> hospital !!
+        <br />Welcome to SecuredBlocks view your patients data here:
+      </h1><br />
+    </div>
+  );
+
+  const secureDataQuote2 = (
+    <div>
+      <div className="quote"
+        style={{
+          textAlign: "center", // Center vertically
+          position: "absolute",
+          top: "20%", // Adjust the position from top
+          left: "50%", // Adjust the position from left
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <h1 className="koro dark:text-white">
+          Unlock the power of data with seamless management - it's the heartbeat
+          of a modern hospital!!{" "} <br />with <span 
+         className="text-4xl" style={{ color: "blue" }}>SecuredaBlocks.io</span>
+        </h1>
+      </div>
     </div>
   );
 
   const unloggedInView = (
-    <button
-      onClick={login}
-      class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
-    >
-      <span class="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-        LogIn / Connect Wallet
-      </span>
-    </button>
+    <div className="yurptn2"
+      style={{
+        display: "flex", // Set display to flex
+        flexDirection: "column", // Stack items vertically
+        alignItems: "center", // Center horizontally
+        position: "absolute",
+        top: "50%", // Adjust the position from top
+        left: "50%", // Adjust the position from left
+        transform: "translate(-50%, -50%)", // Center the content using negative margins
+      }}>
+      <button
+        onClick={login}
+        class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
+      >
+        <span class="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+          LogIn / Connect Wallet
+        </span>
+      </button>{secureDataQuote2}
+    </div>
   );
 
   return (
@@ -243,37 +280,28 @@ function DoctorProfile() {
               aria-controls="navbar-default"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
             </button>
-            <div
-              className="hidden w-full md:block md:w-auto"
-              id="navbar-default"
-            >
-              <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                {loggedIn && (
-                  <li>
-                    <a
-                      href="/"
-                      onClick={logout}
-                      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                    >
-                      Log Out{" "}
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </div>
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              {loggedIn && (
+                <li>{secureDataQuote}
+                  <a
+                    href="/"
+                    onClick={logout}
+                    className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                  >
+                    Log Out{" "}
+                  </a>
+                </li>
+              )}
+            </ul>
           </div>
         </nav>
       </nav>
 
-      <div className="container">
-        <h1 className="title">
-          <a href="http://localhost:3000/" rel="noreferrer"></a>
-        </h1>
-        <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
-        {secureDataQuote}
-      </div>
+      <h1>
+        <a href="http://localhost:3000/" rel="noreferrer"></a>
+      </h1>
+      <div>{loggedIn ? loggedInView : unloggedInView}</div>
     </div>
   );
 }

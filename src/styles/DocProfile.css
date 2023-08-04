@@ -1,0 +1,29 @@
+.boxx {
+    width: 900px;
+    height: 170px;
+    font-size: 40px;
+    border-radius: 6px;
+}
+
+.yurptn {
+    padding-top: 240px;
+    padding-left: 0px;
+}
+
+.yurptn2 {
+    padding-top: 300px;
+    padding-left: 60px;
+}
+
+.tugra {
+    color: black;
+    background-color: antiquewhite;
+    border: none;
+}
+
+.quote {
+    border-radius: 6px;
+    width: 900px;
+    height: 110px;
+    font-size: 40px;
+}

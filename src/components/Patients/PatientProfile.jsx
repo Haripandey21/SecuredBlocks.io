@@ -204,9 +204,8 @@ function PatientProfile() {
       style={{ position: "absolute", top: "250px", left: "40px" }}
     >
       <h1 className="heading">
-        In the pursuit of health, armor your medical data with an unyielding
-        defense, protecting it like never before !!{" "}
-      </h1>
+      As a guardian of your privacy, we stand firm in our commitment.
+      </h1><h2 className="text-3xl font-normal text-gray-900 dark:text-white">Your data is now protected, a sanctuary beyond compare.</h2>
       <p>with SecuredBlocks.io</p>
     </div>
   );
@@ -219,33 +218,34 @@ function PatientProfile() {
     <>
       <br />
       <div
-        style={{ display: "flex", alignItems: "center", paddingRight: "500px" }}
+       
       >
-        <p className=" text-1xl dark:text-white">Welcome, {userName} !!</p>
+        <div className="patient-name">
+        <p className=" text-2xl dark:text-white">
+        <span class="italic">Welcome, {userName} !!</span>
+          </p></div>
       </div>
       <>
-        <div className="container">
-          <div className="grid">
-            <button onClick={initiateTopUp} className={commonButtonClass}>
-              <span className={commonSpanClass}>Get Tokens</span>
-            </button>
+        <div className="grid">
+          <button onClick={initiateTopUp} className={commonButtonClass}>
+            <span className={commonSpanClass}>Get Tokens</span>
+          </button>
 
-            <button onClick={mintNfts} className={commonButtonClass}>
-              <span className={commonSpanClass}>Upload Data</span>
-            </button>
+          <button onClick={mintNfts} className={commonButtonClass}>
+            <span className={commonSpanClass}>Upload Data</span>
+          </button>
 
-            <button onClick={showNfts} className={commonButtonClass}>
-              <span className={commonSpanClass}>Your Records</span>
-            </button>
+          <button onClick={showNfts} className={commonButtonClass}>
+            <span className={commonSpanClass}>Your Records</span>
+          </button>
 
-            <button onClick={grantAccess} className={commonButtonClass}>
-              <span className={commonSpanClass}>Grant Access</span>
-            </button>
+          <button onClick={grantAccess} className={commonButtonClass}>
+            <span className={commonSpanClass}>Grant Access</span>
+          </button>
 
-            <button onClick={hospitalList} className={commonButtonClass}>
-              <span className={commonSpanClass}>Hospital Lists</span>
-            </button>
-          </div>
+          <button onClick={hospitalList} className={commonButtonClass}>
+            <span className={commonSpanClass}>Hospital Lists</span>
+          </button>
         </div>
       </>
     </>
@@ -317,14 +317,11 @@ function PatientProfile() {
           </nav>
         </nav>
 
-        <div className="container">
-          <h1 className="title">
-            <a href="http://localhost:3000/" rel="noreferrer"></a>
-          </h1>
-
-          <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
-          {secureDataQuote}
-        </div>
+        <h1 className="title">
+          <a href="http://localhost:3000/" rel="noreferrer"></a>
+        </h1>
+        <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
+        {secureDataQuote}
       </div>
     </div>
   );
