@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import "./styles/App.css";
 
 import Home from "./components/Home";
@@ -19,6 +18,7 @@ import ContactUs from "./components/ContactUs";
 export default function App() {
   return (
     <Router>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/PatientProfile" element={<PatientProfile />} />
@@ -35,7 +35,6 @@ export default function App() {
         <Route path="/ShowPatientsNfts" element={<ShowPatientsNfts />}>
           <Route path=":patientAddress" element={<ShowPatientsNfts />} />
         </Route>
-
       </Routes>
     </Router>
   );

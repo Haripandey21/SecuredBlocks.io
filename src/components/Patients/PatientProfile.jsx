@@ -204,7 +204,7 @@ function PatientProfile() {
       <br />
       <div>
         <div className="patient-name">
-          <p className=" text-2xl dark:text-white">
+          <p className=" text-2xl dark:text-white ml-10">
             <span className="italic">Welcome, {userName} !!</span>
           </p>
         </div>
@@ -257,13 +257,8 @@ function PatientProfile() {
 
   return (
     <div
-      style={{
-        backgroundImage: `url("/bg.png")`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-      }}
+      className="bg-cover bg-center bg-no-repeat min-h-screen"
+      style={{ backgroundImage: `url("/bg.png")` }}
     >
       <div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">

@@ -45,7 +45,7 @@ const GrantPermission = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("/bg1.png")`,
+        backgroundImage: `url("/bg.png")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -94,13 +94,8 @@ const GrantPermission = () => {
           </nav>
         </nav>
         <div
-          style={{
-            backgroundImage: `url("/bg.png")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            minHeight: "100vh",
-          }}
+          className="bg-cover bg-center bg-no-repeat min-h-screen"
+          style={{ backgroundImage: `url("/bg.png")` }}
         >
           <div className="flex justify-center items-center h-screen">
             {isRevoking && <Loading />}

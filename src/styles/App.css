@@ -3,6 +3,19 @@
 	margin: auto;
 	padding: 0 2rem;
   }
+
+  @media (max-width: 1200px) {
+	.container {
+	  width: 90%; 
+	}
+	
+	.grid {
+	  margin-left: 0;
+	  margin-top: 20px;
+	}
+		
+  }
+  
   
   /* Add a vertical line between the buttons */
   .container::before {
@@ -525,7 +538,7 @@
 	overflow: hidden;
 	border-radius: 30px;
 	color: #ffffff;
-	transition: all 0.8s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	
   }
   
@@ -535,22 +548,9 @@
 	letter-spacing: 4px;
   }
   
-  .type1::after {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	transition: all 0.5s ease-in-out;
-	background-color: #ffffff;
-	border-radius: 30px;
-	visibility: hidden;
-	height: 10px;
-	width: 10px;
-	z-index: -1;
-  }
   
   .buttonhos:hover {
-	box-shadow: 1px 1px 2px #f3f0f5;
+	box-shadow: 1px 1px 10px #9b47d3;
 	color: #ffffff;
 	border: none;
   }
@@ -560,67 +560,8 @@
 	transform: scale(100) translateX(2px);
   }
 
-  /* patient btn  */
-  .buttonpat {
-	height: 50px;
-	width: 200px;
-	position: relative;
-	background-color: transparent;
-	cursor: pointer;
-	border: 2px solid #fcf4f4;
-	overflow: hidden;
-	border-radius: 30px;
-	color: #ffffff;
-	transition: all 0.8s ease-in-out;
-	
-  }
+.italic {
+	margin-right: 600px;
+}
   
-  .btn-txt {
-	z-index: 1;
-	font-weight: 800;
-	letter-spacing: 4px;
-  }
-  
-  .type1::after {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	transition: all 0.5s ease-in-out;
-	background-color: #ffffff;
-	border-radius: 30px;
-	visibility: hidden;
-	height: 10px;
-	width: 10px;
-	z-index: -1;
-  }
-  
-  .buttonpat:hover {
-	box-shadow: 1px 1px 200px #9c6fb9;
-	color: #ffffff;
-	border: none;
-  }
-  
-  .type2:hover::after {
-	visibility: visible;
-	transform: scale(100) translateX(2px);
-  }
 
-  .btns {
-	padding-left: 100px;
-	padding-top: 380px;
-	display: flex;
-	gap: 20px; 
-  }
-
-  /* ---------- */
-
-  .show-patient-text{
-	padding-left: 400px;
-	
-  }
-
-  .patient-name{
-	padding-right: 700px;
-	padding-top: 20px;
-  }
