@@ -27,8 +27,9 @@ export default function App() {
         <Route path="/GrantPermission" element={<GrantPermission />} />
         <Route path="/HospitalsList" element={<HospitalsList />} />
 
-        <Route path="/About" element={<About />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/About" element={<About />} />
+
 
         <Route path="/ShowPatients" element={<ShowPatients />} />
         <Route path="/DoctorProfile" element={<DoctorProfile />} />
