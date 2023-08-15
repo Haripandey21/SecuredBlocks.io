@@ -1,11 +1,10 @@
-import Web3 from 'web3';
-import { Web3Auth } from "@web3auth/modal";//SafeEventEmitterProvider
+import Web3 from "web3";
+import { Web3Auth } from "@web3auth/modal"; //SafeEventEmitterProvider
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 
-const clientId =
-  "BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk";
+const clientId = "process.env.REACT_APP_CLIENT_ID";
 
 const getWeb3 = async () => {
   try {

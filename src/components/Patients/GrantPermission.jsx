@@ -1,35 +1,14 @@
 import React, { useState, useEffect } from "react";
-import getWeb3 from "../web3Utils";
-import ABI from "../../ABI/contractAbi.json";
 import "../../styles/App.css";
 import Loading from "../helpers/Loading";
+import ContractConnection from "../ContractConnection";
 
 const GrantPermission = () => {
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
   const [hospitalAddress, setHospitalAddress] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRevoking, setIsRevoking] = useState(false);
-
-  useEffect(() => {
-    const initWeb3 = async () => {
-      try {
-        const web3Instance = await getWeb3();
-        setWeb3(web3Instance);
-        const contractAddress = "0xD004585023a799C7Ac3dba15FC513Dcf155b508D";
-        const contractInstance = new web3Instance.eth.Contract(
-          ABI,
-          contractAddress
-        );
-        setContract(contractInstance);
-      } catch (error) {
-        console.error("ERROR INITIALIZING Web3:", error);
-      }
-    };
-
-    initWeb3();
-  }, []);
+  const { contract, account } = ContractConnection();
 
   useEffect(() => {
     // Call the grantPermission function when formSubmitted state changes to true
@@ -46,13 +25,11 @@ const GrantPermission = () => {
   };
 
   const grantPermission = async () => {
-    const accounts = await web3.eth.getAccounts();
-    const currentAccount = accounts[0];
     try {
       setIsRevoking(true);
       await contract.methods
         .grantAccess(hospitalAddress)
-        .send({ from: currentAccount });
+        .send({ from: account });
       alert(`Access granted for ${hospitalAddress}`);
       console.log("Access granted for hospital address:", hospitalAddress);
       setHospitalAddress("");
@@ -61,7 +38,6 @@ const GrantPermission = () => {
     } finally {
       setIsLoading(false);
       setIsRevoking(false);
-      window.location.reload();
     }
   };
 

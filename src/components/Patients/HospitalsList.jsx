@@ -1,32 +1,11 @@
 import { useState, useEffect } from "react";
-import getWeb3 from "../web3Utils";
-import ABI from "../../ABI/contractAbi.json";
 import Loading from "../helpers/Loading";
+import ContractConnection from "../ContractConnection";
 
 const HospitalsList = () => {
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
   const [hospitalLists, setHospitalLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const initWeb3 = async () => {
-      try {
-        const web3Instance = await getWeb3();
-        setWeb3(web3Instance);
-        const contractAddress = "0xD004585023a799C7Ac3dba15FC513Dcf155b508D";
-        const contractInstance = new web3Instance.eth.Contract(
-          ABI,
-          contractAddress
-        );
-        setContract(contractInstance);
-      } catch (error) {
-        console.error("ERROR INITIALIZING Web3:", error);
-      }
-    };
-
-    initWeb3();
-  }, []);
+  const { contract, account } = ContractConnection();
 
   useEffect(() => {
     if (contract) {
@@ -35,12 +14,10 @@ const HospitalsList = () => {
   }, [contract]);
 
   const fetchHospitals = async () => {
-    const accounts = await web3.eth.getAccounts();
-    const currentAccount = accounts[0];
     try {
       const hospitalLists = await contract.methods
         .getAuthorizedHospitals()
-        .call({ from: currentAccount });
+        .call({ from: account });
       setHospitalLists(hospitalLists); // Set the retrieved hospital list to the state variable
     } catch (error) {
       console.error("Error calling contract function:", error);
@@ -48,14 +25,11 @@ const HospitalsList = () => {
   };
 
   const handleRevokeAccess = async (hospitalAddress) => {
-    const accounts = await web3.eth.getAccounts();
-    const currentAccount = accounts[0];
-
     try {
       setIsLoading(true); // Show the loader while revoking access
       await contract.methods
         .revokeAccess(hospitalAddress)
-        .send({ from: currentAccount });
+        .send({ from: account });
       alert("Access Revoked Successfully !! ");
       console.log("Access revoked successfully!");
       fetchHospitals(); // After successfully revoking access, refresh the page...
@@ -82,8 +56,8 @@ const HospitalsList = () => {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
               <a href="/" className="flex items-center">
                 <img
-                 src="/logo.png"  
-              
+                  src="/logo.png"
+                  className="h-8 mr-3"
                   alt="SecuredBlocks Logo"
                 />
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">

@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import getWeb3 from "../web3Utils";
-import ABI from "../../ABI/contractAbi.json";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
+import ContractConnection from "../ContractConnection";
 
 const ShowPatientsNfts = () => {
   const { patientAddress } = useParams();
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenUrls, setTokenUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [decryptedData, setDecryptedData] = useState(null);
+  const { contract, account } = ContractConnection();
 
   function decryptData(encryptedData, key) {
     const decryptedBytes = AES.decrypt(encryptedData, key);
@@ -72,25 +70,6 @@ const ShowPatientsNfts = () => {
   }, [decryptedData]);
 
   useEffect(() => {
-    const initWeb3 = async () => {
-      try {
-        const web3Instance = await getWeb3();
-        setWeb3(web3Instance);
-        const contractAddress = "0xD004585023a799C7Ac3dba15FC513Dcf155b508D";
-        const contractInstance = new web3Instance.eth.Contract(
-          ABI,
-          contractAddress
-        );
-        setContract(contractInstance);
-      } catch (error) {
-        console.error("ERROR INITIALIZING Web3:", error);
-      }
-    };
-
-    initWeb3();
-  }, []);
-
-  useEffect(() => {
     if (contract) {
       fetchPatientsNfts();
     }
@@ -98,8 +77,8 @@ const ShowPatientsNfts = () => {
 
   const fetchPatientsNfts = async () => {
     // Check if the web3 object is available before trying to get patients accounts
-    if (!web3) {
-      console.error("Web3 not initialized.");
+    if (!contract) {
+      console.error("contract not initialized.");
       return;
     }
 

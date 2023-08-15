@@ -84,7 +84,7 @@ const NftMintForm = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("/bg1.png")`,
+        backgroundImage: `url("/bg.png")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -141,15 +141,7 @@ const NftMintForm = () => {
           </nav>
         </nav>
 
-        <div
-          style={{
-            backgroundImage: `url("/bg1.png")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            minHeight: "100vh",
-          }}
-        >
+        <div>
           <div className="login-box">
             <form onSubmit={handleSubmit}>
               <div className="user-box">

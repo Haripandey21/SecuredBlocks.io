@@ -204,8 +204,11 @@ function PatientProfile() {
       style={{ position: "absolute", top: "250px", left: "40px" }}
     >
       <h1 className="heading">
-      As a guardian of your privacy, we stand firm in our commitment.
-      </h1><h2 className="text-3xl font-normal text-gray-900 dark:text-white">Your data is now protected, a sanctuary beyond compare.</h2>
+        As a guardian of your privacy, we stand firm in our commitment.
+      </h1>
+      <h2 className="text-3xl font-normal text-gray-900 dark:text-white">
+        Your data is now protected, a sanctuary beyond compare.
+      </h2>
       <p>with SecuredBlocks.io</p>
     </div>
   );
@@ -217,13 +220,12 @@ function PatientProfile() {
   const loggedInView = (
     <>
       <br />
-      <div
-       
-      >
+      <div>
         <div className="patient-name">
-        <p className=" text-2xl dark:text-white">
-        <span class="italic">Welcome, {userName} !!</span>
-          </p></div>
+          <p className=" text-2xl dark:text-white">
+            <span class="italic">Welcome, {userName} !!</span>
+          </p>
+        </div>
       </div>
       <>
         <div className="grid">
@@ -278,7 +280,7 @@ function PatientProfile() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
               <a href="/" className="flex items-center">
                 <img
-                   src="/logo.png"
+                  src="/logo.png"
                   className="h-8 mr-3"
                   alt="SecuredBlocks Logo"
                 />

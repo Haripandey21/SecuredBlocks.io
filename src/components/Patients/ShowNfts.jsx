@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import getWeb3 from "../web3Utils";
-import ABI from "../../ABI/contractAbi.json";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
+import ContractConnection from "../ContractConnection";
 
 function decryptData(encryptedData, key) {
   const decryptedBytes = AES.decrypt(encryptedData, key);
@@ -12,13 +11,11 @@ function decryptData(encryptedData, key) {
 }
 
 const ShowNfts = () => {
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
-  const [tokenIds, setTokenIds] = useState([]);
+   const [tokenIds, setTokenIds] = useState([]);
   const [tokenUrls, setTokenUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [decryptedData, setDecryptedData] = useState(null);
-  const [tokenCount, setTokenCount] = useState("");
+  const { contract, account } = ContractConnection();
 
   async function downloadAndDisplayImages() {
     if (decryptedData && decryptedData.imageBinaries.length > 0) {
@@ -74,45 +71,24 @@ const ShowNfts = () => {
   }, [decryptedData]);
 
   useEffect(() => {
-    const initWeb3 = async () => {
-      try {
-        const web3Instance = await getWeb3();
-        setWeb3(web3Instance);
-        const contractInstance = new web3Instance.eth.Contract(
-          ABI,
-          "0xD004585023a799C7Ac3dba15FC513Dcf155b508D"
-        );
-        setContract(contractInstance);
-      } catch (error) {
-        console.error("Error initializing web3:", error);
-      }
-    };
-    initWeb3();
-  }, []);
-
-  useEffect(() => {
     // Check if the contract object is available before calling mintNft
     if (contract) {
       showNft();
     }
-  }, [contract, web3]);
+  }, [contract]);
 
   const showNft = async () => {
     // Check if the web3 object is available before trying to get accounts
-    if (!web3) {
+    if (!contract) {
       console.error("Web3 not initialized.");
       return;
     }
 
     try {
-      const accounts = await web3.eth.getAccounts();
-      const currentAccount = accounts[0];
       const tokenIds = await contract.methods
-        .getTokenIdsByAddress(currentAccount)
+        .getTokenIdsByAddress(account)
         .call();
       setTokenIds(tokenIds);
-      const tokenIdCount = await tokenIds.length;
-      setTokenCount(tokenIdCount);
 
       // Fetch tokenURLs for each tokenId using Promise.all
       const tokenUrls = await Promise.all(
