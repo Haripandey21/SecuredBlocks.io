@@ -5,6 +5,7 @@ import { AES } from "crypto-js";
 import NftMintContractInteraction from "./MintNftContract";
 import "../../styles/App.css";
 import "../../styles/Custom.css";
+import { Link } from "react-router-dom";
 
 window.Buffer = Buffer;
 function makeStorageClient() {
@@ -95,7 +96,7 @@ const NftMintForm = () => {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
           <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-              <a href="/" className="flex items-center">
+              <Link to={"/"} className="flex items-center">
                 <img
                   src="/logo.png"
                   className="h-8 mr-3"
@@ -104,7 +105,7 @@ const NftMintForm = () => {
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                   SecuredBlocks
                 </span>
-              </a>
+              </Link>
               <button
                 data-collapse-toggle="navbar-default"
                 type="button"
@@ -120,20 +121,20 @@ const NftMintForm = () => {
               >
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                   <li>
-                    <a
-                      href="/PatientProfile"
+                    <Link
+                      to={"/PatientProfile"}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                     >
                       Home{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/ShowNfts"
+                    <Link
+                      to={"/ShowNfts"}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                     >
                       Your Nfts{" "}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -210,9 +211,9 @@ const NftMintForm = () => {
               <center>
                 <button
                   type="submit"
-                  class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
+                  className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
                 >
-                  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                  <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                     Mint &#x1F680;
                   </span>
                 </button>

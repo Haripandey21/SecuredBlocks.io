@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { AES } from "crypto-js";
 import CryptoJS from "crypto-js";
 import ContractConnection from "../ContractConnection";
+import { Link } from "react-router-dom";
 
 const ShowPatientsNfts = () => {
   const { patientAddress } = useParams();
@@ -129,7 +130,7 @@ const ShowPatientsNfts = () => {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
           <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-              <a href="/" className="flex items-center">
+              <Link to={"/"} className="flex items-center">
                 <img
                   src="/logo.png"
                   className="h-8 mr-3"
@@ -138,7 +139,7 @@ const ShowPatientsNfts = () => {
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                   SecuredBlocks
                 </span>
-              </a>
+              </Link>
               <button
                 data-collapse-toggle="navbar-default"
                 type="button"
@@ -154,12 +155,12 @@ const ShowPatientsNfts = () => {
               >
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                   <li>
-                    <a
-                      href="/DoctorProfile"
+                    <Link
+                      to={"/DoctorProfile"}
                       className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                     >
                       Home
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

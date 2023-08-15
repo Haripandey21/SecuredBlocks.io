@@ -4,14 +4,14 @@ import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import "../../styles/App.css";
 import RPC from "../../web3RPC"; // for using web3.js
+import { Link } from "react-router-dom";
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 import { TorusWalletAdapter } from "@web3auth/torus-evm-adapter";
 
-const clientId =
-  "BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk";
+const clientId = "process.env.REACT_APP_CLIENT_ID";
 
 function PatientProfile() {
   const [web3auth, setWeb3auth] = useState(null);
@@ -160,7 +160,6 @@ function PatientProfile() {
   };
   const getUserData = async () => {
     const user = await web3auth.getUserInfo();
-    console.log("username : ", user.name);
     setUserName(user.name);
   };
   getUserData();
@@ -173,23 +172,6 @@ function PatientProfile() {
     await web3auth.logout();
     setProvider(null);
     setLoggedIn(false);
-  };
-
-  const initiateTopUp = async () => {
-    window.location.href = "https://goerlifaucet.com";
-  };
-  const showNfts = async () => {
-    window.location.href = "/showNfts";
-  };
-  const grantAccess = async () => {
-    window.location.href = "/GrantPermission";
-  };
-  const hospitalList = async () => {
-    window.location.href = "/HospitalsList";
-  };
-
-  const mintNfts = async () => {
-    window.location.href = "http://localhost:3000/NftMintForm";
   };
 
   function uiConsole(...args) {
@@ -223,30 +205,39 @@ function PatientProfile() {
       <div>
         <div className="patient-name">
           <p className=" text-2xl dark:text-white">
-            <span class="italic">Welcome, {userName} !!</span>
+            <span className="italic">Welcome, {userName} !!</span>
           </p>
         </div>
       </div>
       <>
         <div className="grid">
-          <button onClick={initiateTopUp} className={commonButtonClass}>
-            <span className={commonSpanClass}>Get Tokens</span>
+          <button className={commonButtonClass}>
+            <span className={commonSpanClass}>
+              <Link to={"https://goerlifaucet.com"}>Get Tokens </Link>
+            </span>
           </button>
 
-          <button onClick={mintNfts} className={commonButtonClass}>
-            <span className={commonSpanClass}>Upload Data</span>
+          <button className={commonButtonClass}>
+            <span className={commonSpanClass}>
+              <Link to={"/NftMintForm"}>Upload Data</Link>
+            </span>
           </button>
 
-          <button onClick={showNfts} className={commonButtonClass}>
-            <span className={commonSpanClass}>Your Records</span>
+          <button className={commonButtonClass}>
+            <span className={commonSpanClass}>
+              <Link to={"/GrantPermission"}>Grant Access</Link>
+            </span>
           </button>
 
-          <button onClick={grantAccess} className={commonButtonClass}>
-            <span className={commonSpanClass}>Grant Access</span>
+          <button className={commonButtonClass}>
+            <span className={commonSpanClass}>
+              <Link to={"/HospitalsList"}>Hospital List</Link>
+            </span>
           </button>
-
-          <button onClick={hospitalList} className={commonButtonClass}>
-            <span className={commonSpanClass}>Hospital Lists</span>
+          <button className={commonButtonClass}>
+            <span className={commonSpanClass}>
+              <Link to={"/ShowNfts"}>Your Records </Link>
+            </span>
           </button>
         </div>
       </>
@@ -256,9 +247,9 @@ function PatientProfile() {
   const unloggedInView = (
     <button
       onClick={login}
-      class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
+      className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
     >
-      <span class="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+      <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
         LogIn / Connect Wallet
       </span>
     </button>
@@ -278,7 +269,7 @@ function PatientProfile() {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
           <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-              <a href="/" className="flex items-center">
+              <Link to={"/"} className="flex items-center">
                 <img
                   src="/logo.png"
                   className="h-8 mr-3"
@@ -287,7 +278,7 @@ function PatientProfile() {
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                   SecuredBlocks
                 </span>
-              </a>
+              </Link>
               <button
                 data-collapse-toggle="navbar-default"
                 type="button"
@@ -304,13 +295,13 @@ function PatientProfile() {
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                   {loggedIn && (
                     <li>
-                      <a
-                        href="/"
+                      <Link
+                        to={"/"}
                         onClick={logout}
                         className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                       >
                         Log Out{" "}
-                      </a>
+                      </Link>
                     </li>
                   )}
                 </ul>
@@ -320,7 +311,7 @@ function PatientProfile() {
         </nav>
 
         <h1 className="title">
-          <a href="http://localhost:3000/" rel="noreferrer"></a>
+          <Link to="http://localhost:3000/" rel="noreferrer"></Link>
         </h1>
         <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
         {secureDataQuote}
