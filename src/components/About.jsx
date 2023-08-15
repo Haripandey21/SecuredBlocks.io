@@ -1,7 +1,16 @@
 import React from "react";
+import Header from "./helpers/Header";
 
 const About = () => {
   return (
+    <>
+     <Header />
+
+<div
+  className="bg-cover bg-center bg-no-repeat min-h-screen"
+  style={{ backgroundImage: `url("/contactpagebg.jpg")` }}
+>
+ 
     <div
       className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4  text-white"
       style={{ backgroundColor: "#221C35" }}
@@ -398,6 +407,9 @@ const About = () => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
+
 };
 export default About;
